@@ -6,10 +6,8 @@ function About() {
           <div className="container section-title" data-aos="fade-up">
             <h2>About</h2>
             <p>
-              Magnam dolores commodi suscipit. Necessitatibus eius consequatur
-              ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam
-              quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea.
-              Quia fugiat sit in iste officiis commodi quidem hic quas.
+              I am a Laravel Full Stack Developer with 3+ years of experience
+          building scalable web applications and REST APIs.
             </p>
           </div>
           {/* End Section Title */}
@@ -23,29 +21,30 @@ function About() {
                 />
               </div>
               <div className="col-lg-8 content">
-                <h2>UI/UX Designer &amp; Web Developer.</h2>
+                {/* <h2>UI/UX Designer &amp; Web Developer.</h2> */}
+                <h2>Full Stack Laravel Developer.</h2>
                 <p className="fst-italic py-3">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Passionate about backend development,
+              API architecture and modern frontend technologies.
                 </p>
                 <div className="row">
                   <div className="col-lg-6">
                     <ul>
                       <li>
                         <i className="bi bi-chevron-right" />{" "}
-                        <strong>Birthday:</strong> <span>1 May 1995</span>
+                        <strong>Birthday:</strong> <span>28 September 1997</span>
                       </li>
                       <li>
                         <i className="bi bi-chevron-right" />{" "}
-                        <strong>Website:</strong> <span>www.example.com</span>
+                        <strong>GitHub:</strong> <span>https://github.com/KalavalapalliMohan</span>
                       </li>
                       <li>
                         <i className="bi bi-chevron-right" />{" "}
-                        <strong>Phone:</strong> <span>+123 456 7890</span>
+                        <strong>Phone:</strong> <span>+91 798 103 1675</span>
                       </li>
                       <li>
                         <i className="bi bi-chevron-right" />{" "}
-                        <strong>City:</strong> <span>New York, USA</span>
+                        <strong>City:</strong> <span>Andhra Pradesh, India</span>
                       </li>
                     </ul>
                   </div>
@@ -53,15 +52,15 @@ function About() {
                     <ul>
                       <li>
                         <i className="bi bi-chevron-right" />{" "}
-                        <strong>Age:</strong> <span>30</span>
+                        <strong>Age:</strong> <span>28</span>
                       </li>
                       <li>
                         <i className="bi bi-chevron-right" />{" "}
-                        <strong>Degree:</strong> <span>Master</span>
+                        <strong>Degree:</strong> <span>Diploma</span>
                       </li>
                       <li>
                         <i className="bi bi-chevron-right" />{" "}
-                        <strong>Email:</strong> <span>email@example.com</span>
+                        <strong>Email:</strong> <span>kalavalapallimohan9@gmail.com</span>
                       </li>
                       <li>
                         <i className="bi bi-chevron-right" />{" "}
@@ -70,13 +69,13 @@ function About() {
                     </ul>
                   </div>
                 </div>
-                <p className="py-3">
+                {/* <p className="py-3">
                   Officiis eligendi itaque labore et dolorum mollitia officiis
                   optio vero. Quisquam sunt adipisci omnis et ut. Nulla
                   accusantium dolor incidunt officia tempore. Et eius omnis.
                   Cupiditate ut dicta maxime officiis quidem quia. Sed et
                   consectetur qui quia repellendus itaque neque.
-                </p>
+                </p> */}
               </div>
             </div>
           </div>

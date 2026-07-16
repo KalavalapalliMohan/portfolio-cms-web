@@ -15,7 +15,7 @@ function Skills() {
               <div className="col-lg-6">
                 <div className="progress">
                   <span className="skill">
-                    <span>HTML</span> <i className="val">100%</i>
+                    <span>Laravel</span> <i className="val">90%</i>
                   </span>
                   <div className="progress-bar-wrap">
                     <div
@@ -30,7 +30,7 @@ function Skills() {
                 {/* End Skills Item */}
                 <div className="progress">
                   <span className="skill">
-                    <span>CSS</span> <i className="val">90%</i>
+                    <span>PHP</span> <i className="val">90%</i>
                   </span>
                   <div className="progress-bar-wrap">
                     <div
@@ -45,7 +45,7 @@ function Skills() {
                 {/* End Skills Item */}
                 <div className="progress">
                   <span className="skill">
-                    <span>JavaScript</span> <i className="val">75%</i>
+                    <span>React</span> <i className="val">70%</i>
                   </span>
                   <div className="progress-bar-wrap">
                     <div
@@ -62,7 +62,7 @@ function Skills() {
               <div className="col-lg-6">
                 <div className="progress">
                   <span className="skill">
-                    <span>PHP</span> <i className="val">80%</i>
+                    <span>PostgreSQL</span> <i className="val">75%</i>
                   </span>
                   <div className="progress-bar-wrap">
                     <div
@@ -77,7 +77,7 @@ function Skills() {
                 {/* End Skills Item */}
                 <div className="progress">
                   <span className="skill">
-                    <span>WordPress/CMS</span> <i className="val">90%</i>
+                    <span>javaScript</span> <i className="val">70%</i>
                   </span>
                   <div className="progress-bar-wrap">
                     <div
@@ -92,7 +92,7 @@ function Skills() {
                 {/* End Skills Item */}
                 <div className="progress">
                   <span className="skill">
-                    <span>Photoshop</span> <i className="val">55%</i>
+                    <span>HTML</span> <i className="val">90%</i>
                   </span>
                   <div className="progress-bar-wrap">
                     <div

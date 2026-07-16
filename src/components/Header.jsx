@@ -14,8 +14,8 @@ function Header() {
           className="logo d-flex align-items-center justify-content-center"
         >
           {/* Uncomment the line below if you also wish to use an image logo */}
-          <img src="assets/img/logo.png" alt="Logo" />
-          <h1 className="sitename">Alex Smith</h1>
+          {/* <img src="assets/img/logo.png" alt="Logo" /> */}
+          <h1 className="sitename">Mohan</h1>
         </a>
         <div className="social-links text-center">
           <a href="#" className="twitter">
@@ -45,6 +45,11 @@ function Header() {
             <li>
               <a href="#about">
                 <i className="bi bi-person navicon" /> About
+              </a>
+            </li>
+            <li>
+              <a href="#skills">
+                <i className="bi bi-person navicon" /> Skills
               </a>
             </li>
             <li>
