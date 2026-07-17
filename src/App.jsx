@@ -11,8 +11,11 @@ import Services from "./components/Services";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
+import AdminLayout from "./admin/layouts/AdminLayout";
+import AdminAuthLayout from "./admin/layouts/AdminAuthLayout";
 import Login from "./admin/pages/Login";
 import Dashboard from "./admin/pages/Dashboard";
+
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function PortfolioWebsite() {
@@ -39,23 +42,33 @@ function PortfolioWebsite() {
 function App() {
   return (
     <Routes>
-
-      {/* Public */}
+      {/* ========================= */}
+      {/* Public Portfolio */}
+      {/* ========================= */}
       <Route path="/" element={<PortfolioWebsite />} />
 
+      {/* ========================= */}
       {/* Admin Login */}
-      <Route path="/admin/login" element={<Login />} />
+      {/* ========================= */}
+      <Route element={<AdminAuthLayout />}>
 
-      {/* Admin Dashboard */}
+          <Route path="/admin/login" element={<Login />} />
+
+      </Route>
+
+      {/* ========================= */}
+      {/* Protected Admin Routes */}
+      {/* ========================= */}
       <Route
-        path="/admin/dashboard"
+        path="/admin"
         element={
           <ProtectedRoute>
-            <Dashboard />
+            <AdminLayout />
           </ProtectedRoute>
         }
-      />
-
+      >
+        <Route path="dashboard" element={<Dashboard />} />
+      </Route>
     </Routes>
   );
 }
