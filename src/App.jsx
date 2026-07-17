@@ -11,8 +11,8 @@ import Services from "./components/Services";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
-import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
+import Login from "./admin/pages/Login";
+import Dashboard from "./admin/pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function PortfolioWebsite() {
@@ -39,21 +39,23 @@ function PortfolioWebsite() {
 function App() {
   return (
     <Routes>
-      {/* Public Portfolio */}
+
+      {/* Public */}
       <Route path="/" element={<PortfolioWebsite />} />
 
-      {/* Login */}
-      <Route path="/login" element={<Login />} />
+      {/* Admin Login */}
+      <Route path="/admin/login" element={<Login />} />
 
-      {/* Protected Admin */}
+      {/* Admin Dashboard */}
       <Route
-        path="/admin"
+        path="/admin/dashboard"
         element={
           <ProtectedRoute>
             <Dashboard />
           </ProtectedRoute>
         }
       />
+
     </Routes>
   );
 }
