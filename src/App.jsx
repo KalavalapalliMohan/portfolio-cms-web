@@ -3,6 +3,7 @@ import Hero from "./components/Hero";
 import About from "./components/About";
 import Skills from "./components/Skills";
 import Resume from "./components/Resume";
+import Certificates from "./components/Certificates";
 import Portfolio from "./components/Portfolio";
 import Services from "./components/Services";
 import Contact from "./components/Contact";
@@ -21,6 +22,8 @@ function App() {
         <Skills />
 
         <Resume />
+
+        <Certificates />
 
         <Portfolio />
 

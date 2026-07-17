@@ -58,6 +58,11 @@ function Header() {
               </a>
             </li>
             <li>
+              <a href="#certificates">
+                <i className="bi bi-file-earmark-text navicon" /> Certificates
+              </a>
+            </li>
+            <li>
               <a href="#portfolio">
                 <i className="bi bi-images navicon" /> Portfolio
               </a>
