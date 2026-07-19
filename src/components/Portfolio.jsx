@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "../services/api";
+import api from "../api/axios";
 
 function Portfolio() {
   const [projects, setProjects] = useState([]);

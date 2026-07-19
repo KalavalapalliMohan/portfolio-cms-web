@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import api from "../../services/api";
+import api from "../../api/axios";
 
 function Login() {
 
@@ -11,32 +11,28 @@ function Login() {
 
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setLoading(true);
-
     try {
+        const response = await api.post("/login", {
+            email,
+            password,
+        });
 
-      const response = await api.post("/login", {
-        email,
-        password,
-      });
+        console.log(response.data);
 
-      localStorage.setItem("token", response.data.token);
+        localStorage.setItem(
+            "token",
+            response.data.data.access_token
+        );
 
-      navigate("/admin/dashboard");
+        navigate("/admin/dashboard");
 
-    } catch (error) {
-
-      alert(
-        error.response?.data?.message || "Login Failed"
-      );
-
-    } finally {
-      setLoading(false);
+    } catch (err) {
+        console.log(err);
     }
-  };
+};
 
   return (
       <>
@@ -53,7 +49,7 @@ function Login() {
             <div className="row h-100 align-items-center justify-content-center" style={{minHeight: '100vh'}}>
               <div className="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
 
-                <form onSubmit={handleLogin} className="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
+                <form onSubmit={handleSubmit} className="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
                   <div className="d-flex align-items-center justify-content-between mb-3">
                     <Link to="/admin/dashboard">
                       <h3 className="text-primary"><i className="fa fa-user-edit me-2" />DarkPan</h3>

@@ -1,37 +1,18 @@
-function RecentProjects() {
-  const projects = [
-    {
-      id: 1,
-      title: "Portfolio CMS",
-      technology: "Laravel + React",
-      status: "Completed",
-      created: "19 Jul 2026",
-    },
-    {
-      id: 2,
-      title: "Job Portal",
-      technology: "Laravel",
-      status: "In Progress",
-      created: "18 Jul 2026",
-    },
-    {
-      id: 3,
-      title: "Hospital Management",
-      technology: "React",
-      status: "Pending",
-      created: "15 Jul 2026",
-    },
-  ];
+function RecentProjects({ projects = [] }) {
 
   return (
     <div className="container-fluid pt-4 px-4">
       <div className="bg-secondary text-center rounded p-4">
+
         <div className="d-flex align-items-center justify-content-between mb-4">
           <h6 className="mb-0">Recent Projects</h6>
         </div>
 
+
         <div className="table-responsive">
+
           <table className="table text-start align-middle table-bordered table-hover mb-0">
+
             <thead>
               <tr className="text-white">
                 <th>#</th>
@@ -42,34 +23,46 @@ function RecentProjects() {
               </tr>
             </thead>
 
+
             <tbody>
-              {projects.map((project) => (
+
+            {
+              projects.map((project)=>(
                 <tr key={project.id}>
+
                   <td>{project.id}</td>
+
                   <td>{project.title}</td>
-                  <td>{project.technology}</td>
+
+                  <td>{project.technologies}</td>
+
+
                   <td>
-                    <span
-                      className={`badge ${
-                        project.status === "Completed"
-                          ? "bg-success"
-                          : project.status === "In Progress"
-                          ? "bg-warning"
-                          : "bg-danger"
-                      }`}
-                    >
-                      {project.status}
+                    <span className="badge bg-success">
+                      {project.status ? "Completed" : "Pending"}
                     </span>
                   </td>
-                  <td>{project.created}</td>
+
+
+                  <td>
+                    {new Date(project.created_at)
+                    .toLocaleDateString()}
+                  </td>
+
                 </tr>
-              ))}
+              ))
+            }
+
             </tbody>
+
           </table>
+
         </div>
+
       </div>
     </div>
   );
 }
+
 
 export default RecentProjects;

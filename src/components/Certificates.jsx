@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "../services/api";
+import api from "../api/axios";
 
 const Certificates = () => {
   const [certificates, setCertificates] = useState([]);

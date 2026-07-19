@@ -1,6 +1,13 @@
 import Chart from "react-apexcharts";
 
-function ContactChart() {
+
+function ContactChart({data}) {
+
+  const series = [
+    data?.total_messages ?? 0
+  ];
+
+
   const options = {
     chart: {
       toolbar: {
@@ -8,20 +15,28 @@ function ContactChart() {
       },
       background: "transparent",
     },
+
     theme: {
       mode: "dark",
     },
-    labels: ["New", "Replied", "Pending"],
+
+    labels: [
+      "Messages"
+    ],
+
     legend: {
       position: "bottom",
     },
   };
 
-  const series = [12, 8, 5];
 
   return (
     <div className="bg-secondary rounded p-4">
-      <h6 className="mb-4">Contact Messages</h6>
+
+      <h6 className="mb-4">
+        Contact Messages
+      </h6>
+
 
       <Chart
         options={options}
@@ -29,8 +44,10 @@ function ContactChart() {
         type="donut"
         height={300}
       />
+
     </div>
   );
 }
+
 
 export default ContactChart;

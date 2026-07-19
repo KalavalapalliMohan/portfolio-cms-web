@@ -1,37 +1,61 @@
 import Chart from "react-apexcharts";
 
-function ProjectChart() {
+
+function ProjectChart({ data }) {
+
+
+  const series = [
+    {
+      name: "Projects",
+      data: [
+        data?.total_projects ?? 0
+      ],
+    },
+  ];
+
+
   const options = {
+
     chart: {
       toolbar: {
         show: false,
       },
       background: "transparent",
     },
+
+
     theme: {
       mode: "dark",
     },
+
+
     xaxis: {
-      categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+      categories: [
+        "Total"
+      ],
     },
+
+
     stroke: {
       curve: "smooth",
     },
+
+
     dataLabels: {
       enabled: false,
     },
+
   };
 
-  const series = [
-    {
-      name: "Projects",
-      data: [2, 4, 6, 8, 10, 12],
-    },
-  ];
 
   return (
+
     <div className="bg-secondary rounded p-4">
-      <h6 className="mb-4">Project Statistics</h6>
+
+      <h6 className="mb-4">
+        Project Statistics
+      </h6>
+
 
       <Chart
         options={options}
@@ -39,8 +63,12 @@ function ProjectChart() {
         type="line"
         height={300}
       />
+
     </div>
+
   );
+
 }
+
 
 export default ProjectChart;
