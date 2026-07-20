@@ -20,6 +20,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 import ProjectList from "./admin/pages/projects/ProjectList";
 import SkillList from "./admin/pages/skills/SkillList";
+import ExperienceList from "./admin/pages/experiences/ExperienceList";
 
 function PortfolioWebsite() {
   return (
@@ -73,6 +74,7 @@ function App() {
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="projects" element={<ProjectList />} />
         <Route path="skills" element={<SkillList />} />
+        <Route path="Experiences" element={<ExperienceList />} />
       </Route>
     </Routes>
   );
