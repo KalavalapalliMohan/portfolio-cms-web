@@ -21,6 +21,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import ProjectList from "./admin/pages/projects/ProjectList";
 import SkillList from "./admin/pages/skills/SkillList";
 import ExperienceList from "./admin/pages/experiences/ExperienceList";
+import EducationList from "./admin/pages/education/EducationList";
 
 function PortfolioWebsite() {
   return (
@@ -75,6 +76,10 @@ function App() {
         <Route path="projects" element={<ProjectList />} />
         <Route path="skills" element={<SkillList />} />
         <Route path="Experiences" element={<ExperienceList />} />
+        <Route
+            path="educations"
+            element={<EducationList />}
+        />
       </Route>
     </Routes>
   );
