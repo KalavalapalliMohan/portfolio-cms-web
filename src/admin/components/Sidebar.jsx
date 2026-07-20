@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 function Sidebar() {
   return (
     <>
@@ -18,7 +20,25 @@ function Sidebar() {
       </div>
     </div>
     <div className="navbar-nav w-100">
-      <a href="/admin/dashboard" className="nav-item nav-link active"><i className="fa fa-tachometer-alt me-2" />Dashboard</a>
+      <NavLink 
+         to="/admin/dashboard"
+        className={({ isActive }) =>
+          isActive
+            ? "nav-item nav-link active"
+            : "nav-item nav-link"
+        }
+      >
+        <i className="fa fa-tachometer-alt me-2" />
+        Dashboard
+      </NavLink>
+      <NavLink 
+        to="/admin/projects" 
+        className="nav-item nav-link"
+      >
+        <i className="fa fa-th me-2" />
+        Projects
+      </NavLink>
+
       <div className="nav-item dropdown">
         <a href="#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i className="fa fa-laptop me-2" />Elements</a>
         <div className="dropdown-menu bg-transparent border-0">

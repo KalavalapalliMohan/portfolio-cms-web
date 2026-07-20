@@ -18,6 +18,8 @@ import Dashboard from "./admin/pages/Dashboard";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 
+import ProjectList from "./admin/pages/projects/ProjectList";
+
 function PortfolioWebsite() {
   return (
     <>
@@ -68,6 +70,7 @@ function App() {
         }
       >
         <Route path="dashboard" element={<Dashboard />} />
+        <Route path="projects" element={<ProjectList />} />
       </Route>
     </Routes>
   );
