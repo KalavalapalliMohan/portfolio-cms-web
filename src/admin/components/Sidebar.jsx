@@ -31,12 +31,74 @@ function Sidebar() {
         <i className="fa fa-tachometer-alt me-2" />
         Dashboard
       </NavLink>
-      <NavLink 
-        to="/admin/projects" 
-        className="nav-item nav-link"
+      <NavLink
+          to="/admin/projects"
+          className={({isActive}) =>
+              `nav-item nav-link ${isActive ? "active" : ""}`
+          }
       >
-        <i className="fa fa-th me-2" />
-        Projects
+          <i className="fa fa-folder me-2"></i>
+          Projects
+      </NavLink>
+
+      <NavLink
+          to="/admin/skills"
+          className={({isActive}) =>
+              `nav-item nav-link ${isActive ? "active" : ""}`
+          }
+      >
+          <i className="fa fa-code me-2"></i>
+          Skills
+      </NavLink>
+
+      <NavLink
+          to="/admin/experiences"
+          className={({isActive}) =>
+              `nav-item nav-link ${isActive ? "active" : ""}`
+          }
+      >
+          <i className="fa fa-briefcase me-2"></i>
+          Experience
+      </NavLink>
+
+      <NavLink
+          to="/admin/educations"
+          className={({isActive}) =>
+              `nav-item nav-link ${isActive ? "active" : ""}`
+          }
+      >
+          <i className="fa fa-graduation-cap me-2"></i>
+          Education
+      </NavLink>
+
+      <NavLink
+          to="/admin/certificates"
+          className={({isActive}) =>
+              `nav-item nav-link ${isActive ? "active" : ""}`
+          }
+      >
+          <i className="fa fa-certificate me-2"></i>
+          Certificates
+      </NavLink>
+
+      <NavLink
+          to="/admin/messages"
+          className={({isActive}) =>
+              `nav-item nav-link ${isActive ? "active" : ""}`
+          }
+      >
+          <i className="fa fa-envelope me-2"></i>
+          Messages
+      </NavLink>
+
+      <NavLink
+          to="/admin/settings"
+          className={({isActive}) =>
+              `nav-item nav-link ${isActive ? "active" : ""}`
+          }
+      >
+          <i className="fa fa-cog me-2"></i>
+          Settings
       </NavLink>
 
       <div className="nav-item dropdown">
