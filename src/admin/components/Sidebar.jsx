@@ -37,14 +37,14 @@ function Sidebar() {
           <div className="d-flex align-items-center ms-4 mb-4">
             <div className="position-relative">
               <img
-                className="rounded-circle"
+                className=""
                 src={
                   settings?.profile_image
                     ? `http://127.0.0.1:8000/storage/settings/${settings.profile_image}`
-                    : "/admin-assets/img/user.jpg"
+                    : "/admin-assets/img/user.jpeg"
                 }
                 alt="User"
-                style={{ width: 60, height: 80 }}
+                style={{ width: 50, height: 65 }}
               />
 
               <div className="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>

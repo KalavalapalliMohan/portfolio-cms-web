@@ -15,8 +15,14 @@ const deleteMessage = async (id) => {
     return response.data;
 };
 
+const getUnreadMessages = async () => {
+    const response = await api.get("/admin/messages/unread");
+    return response.data;
+};
+
 export default {
     getMessages,
     getMessage,
     deleteMessage,
+    getUnreadMessages,
 };

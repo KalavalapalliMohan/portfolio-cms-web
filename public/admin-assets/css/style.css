@@ -68,7 +68,7 @@
     top: 0;
     left: 0;
     bottom: 0;
-    width: 250px;
+    width: 260px;
     height: 100vh;
     overflow-y: auto;
     background: var(--secondary);
@@ -77,7 +77,7 @@
 }
 
 .content {
-    margin-left: 250px;
+    margin-left: 260px;
     min-height: 100vh;
     background: var(--dark);
     transition: 0.5s;
@@ -286,4 +286,10 @@
 .testimonial-carousel .owl-dot.active {
     background: var(--dark);
     border-color: var(--primary);
+}
+
+.dropdown-menu.messages-dropdown {
+    width: 320px;
+    max-height: 400px;
+    overflow-y: auto;
 }

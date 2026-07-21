@@ -13,10 +13,12 @@ import Footer from "./components/Footer";
 
 import AdminLayout from "./admin/layouts/AdminLayout";
 import AdminAuthLayout from "./admin/layouts/AdminAuthLayout";
+
+import ProtectedRoute from "./admin/layouts/ProtectedRoute";
+import GuestRoute from "./admin/layouts/GuestRoute";
+
 import Login from "./admin/pages/Login";
 import Dashboard from "./admin/pages/Dashboard";
-
-import ProtectedRoute from "./components/ProtectedRoute";
 
 import ProjectList from "./admin/pages/projects/ProjectList";
 import SkillList from "./admin/pages/skills/SkillList";
@@ -50,53 +52,43 @@ function PortfolioWebsite() {
 function App() {
   return (
     <Routes>
-      {/* ========================= */}
+      {/* ===================== */}
       {/* Public Portfolio */}
-      {/* ========================= */}
+      {/* ===================== */}
       <Route path="/" element={<PortfolioWebsite />} />
 
-      {/* ========================= */}
-      {/* Admin Login */}
-      {/* ========================= */}
-      <Route element={<AdminAuthLayout />}>
-
+      {/* ===================== */}
+      {/* Guest Routes */}
+      {/* ===================== */}
+      <Route element={<GuestRoute />}>
+        <Route element={<AdminAuthLayout />}>
           <Route path="/admin/login" element={<Login />} />
-
+        </Route>
       </Route>
 
-      {/* ========================= */}
-      {/* Protected Admin Routes */}
-      {/* ========================= */}
-      <Route
-        path="/admin"
-        element={
-          <ProtectedRoute>
-            <AdminLayout />
-          </ProtectedRoute>
-        }
-      >
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="projects" element={<ProjectList />} />
-        <Route path="skills" element={<SkillList />} />
-        <Route path="Experiences" element={<ExperienceList />} />
-        <Route
-            path="educations"
-            element={<EducationList />}
-        />
-        <Route
-          path="certificates"
-          element={<CertificateList />}
-        />
+      {/* ===================== */}
+      {/* Protected Routes */}
+      {/* ===================== */}
+      <Route element={<ProtectedRoute />}>
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<Dashboard />} />
 
-        <Route
-          path="settings"
-          element={<Settings />}
-        />
+          <Route path="dashboard" element={<Dashboard />} />
 
-        <Route
-            path="messages"
-            element={<MessageList />}
-        />
+          <Route path="projects" element={<ProjectList />} />
+
+          <Route path="skills" element={<SkillList />} />
+
+          <Route path="experiences" element={<ExperienceList />} />
+
+          <Route path="educations" element={<EducationList />} />
+
+          <Route path="certificates" element={<CertificateList />} />
+
+          <Route path="settings" element={<Settings />} />
+
+          <Route path="messages" element={<MessageList />} />
+        </Route>
       </Route>
     </Routes>
   );
