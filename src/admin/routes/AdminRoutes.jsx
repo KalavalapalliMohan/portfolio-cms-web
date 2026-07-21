@@ -6,7 +6,12 @@ import Dashboard from "../pages/Dashboard";
 import AdminLayout from "../layouts/AdminLayout";
 
 import ProjectList from "../pages/projects/ProjectList";
+import SkillList from "../pages/skills/SkillList";
+import ExperienceList from "../pages/experiences/ExperienceList";
+import EducationList from "../pages/education/EducationList";
+import CertificateList from "../pages/certificates/CertificateList";
 
+import Settings from "../pages/settings/Settings";
 
 function AdminRoutes() {
 
@@ -36,6 +41,31 @@ function AdminRoutes() {
         <Route
           path="projects"
           element={<ProjectList />}
+        />
+
+        <Route
+          path="skills"
+          element={<SkillList />}
+        />
+
+        <Route
+          path="experiences"
+          element={<ExperienceList />}
+        />
+
+        <Route
+          path="educations"
+          element={<EducationList />}
+        />
+
+        <Route
+          path="certificates"
+          element={<CertificateList />}
+        />
+
+        <Route
+          path="settings"
+          element={<Settings />}
         />
 
 

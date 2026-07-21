@@ -23,6 +23,7 @@ import SkillList from "./admin/pages/skills/SkillList";
 import ExperienceList from "./admin/pages/experiences/ExperienceList";
 import EducationList from "./admin/pages/education/EducationList";
 import CertificateList from "./admin/pages/certificates/CertificateList";
+import Settings from "./admin/pages/settings/Settings";
 
 function PortfolioWebsite() {
   return (
@@ -84,6 +85,11 @@ function App() {
         <Route
           path="certificates"
           element={<CertificateList />}
+        />
+
+        <Route
+          path="settings"
+          element={<Settings />}
         />
       </Route>
     </Routes>
