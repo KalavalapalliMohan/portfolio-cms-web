@@ -10,6 +10,7 @@ import SkillList from "../pages/skills/SkillList";
 import ExperienceList from "../pages/experiences/ExperienceList";
 import EducationList from "../pages/education/EducationList";
 import CertificateList from "../pages/certificates/CertificateList";
+import MessageList from "../pages/messages/MessageList";
 
 import Settings from "../pages/settings/Settings";
 
@@ -66,6 +67,11 @@ function AdminRoutes() {
         <Route
           path="settings"
           element={<Settings />}
+        />
+
+        <Route
+          path="messages"
+          element={<MessageList />}
         />
 
 

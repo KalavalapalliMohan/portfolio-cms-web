@@ -24,6 +24,7 @@ import ExperienceList from "./admin/pages/experiences/ExperienceList";
 import EducationList from "./admin/pages/education/EducationList";
 import CertificateList from "./admin/pages/certificates/CertificateList";
 import Settings from "./admin/pages/settings/Settings";
+import MessageList from "./admin/pages/messages/MessageList";
 
 function PortfolioWebsite() {
   return (
@@ -90,6 +91,11 @@ function App() {
         <Route
           path="settings"
           element={<Settings />}
+        />
+
+        <Route
+            path="messages"
+            element={<MessageList />}
         />
       </Route>
     </Routes>
