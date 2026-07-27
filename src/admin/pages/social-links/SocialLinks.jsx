@@ -17,13 +17,14 @@ function SocialLinks() {
     try {
       setLoading(true);
 
-      const response =
-        await socialLinkService.getSocialLinks();
-        console.log(response);
+      const response = await socialLinkService.getSocialLinks();
 
-      setSocialLinks(response.data.data);
+      // console.log(response);
+
+      setSocialLinks(response.data ?? []);
     } catch (error) {
       console.error(error);
+      setSocialLinks([]);
     } finally {
       setLoading(false);
     }
