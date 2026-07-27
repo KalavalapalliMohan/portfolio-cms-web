@@ -1,5 +1,4 @@
 function StatisticsCards({ data }) {
-
   const cards = [
     {
       title: "Projects",
@@ -15,7 +14,7 @@ function StatisticsCards({ data }) {
     },
     {
       title: "Experience",
-      value: data?.total_experiences ?? 0,
+      value: data?.total_experience ?? "0 Years",
       icon: "fa fa-briefcase",
       color: "warning",
     },
@@ -27,44 +26,24 @@ function StatisticsCards({ data }) {
     },
   ];
 
-
   return (
     <div className="container-fluid pt-4 px-4">
-
       <div className="row g-4">
-
         {cards.map((card, index) => (
-
           <div className="col-sm-6 col-xl-3" key={index}>
-
             <div className="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-
               <i className={`${card.icon} fa-3x text-${card.color}`}></i>
 
-
               <div className="ms-3">
-
-                <p className="mb-2">
-                  {card.title}
-                </p>
-
-                <h6 className="mb-0">
-                  {card.value}
-                </h6>
-
+                <p className="mb-2">{card.title}</p>
+                <h6 className="mb-0">{card.value}</h6>
               </div>
-
             </div>
-
           </div>
-
         ))}
-
       </div>
-
     </div>
   );
 }
-
 
 export default StatisticsCards;
