@@ -12,7 +12,7 @@ function SettingsModal({ settings, onSuccess }) {
     phone: "",
     location: "",
     about: "",
-    resume: "",
+    resume: null,
     profile_image: null,
   });
 
@@ -68,56 +68,52 @@ function SettingsModal({ settings, onSuccess }) {
     setPreview(URL.createObjectURL(file));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    try {
-      setLoading(true);
+  try {
+    setLoading(true);
 
-      const data = new FormData();
+    const data = new FormData();
 
-      Object.keys(formData).forEach((key) => {
-        if (formData[key] !== null) {
-          data.append(key, formData[key]);
-        }
-      });
-
-      // Laravel method spoofing
-      data.append("_method", "PUT");
-
-      await settingService.updateSettings(
-        settings.id,
-
-        data,
-      );
-
-      Swal.fire({
-        icon: "success",
-
-        title: "Updated",
-
-        text: "Settings updated successfully",
-      });
-
-      if (onSuccess) {
-        onSuccess();
+    Object.keys(formData).forEach((key) => {
+      if (formData[key] !== null) {
+        data.append(key, formData[key]);
       }
-    } catch (error) {
-      console.log("FULL ERROR:", error);
+    });
 
-      console.log("VALIDATION:", error.response?.data);
-
-      Swal.fire({
-        icon: "error",
-
-        title: "Error",
-
-        text: JSON.stringify(error.response?.data, null, 2),
-      });
-    } finally {
-      setLoading(false);
+    if (settings && settings.id) {
+      // Update
+      data.append("_method", "PUT");
+      await settingService.updateSettings(settings.id, data);
+    } else {
+      // First Time Create
+      await settingService.createSettings(data);
     }
-  };
+
+    Swal.fire({
+      icon: "success",
+      title: "Success",
+      text: settings
+        ? "Settings updated successfully."
+        : "Settings created successfully.",
+    });
+
+    onSuccess && onSuccess();
+  } catch (error) {
+    console.log(error);
+
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text:
+        error.response?.data?.message ||
+        "Something went wrong.",
+    });
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="container-fluid pt-4 px-4">
@@ -185,10 +181,15 @@ function SettingsModal({ settings, onSuccess }) {
               <label>Resume</label>
 
               <input
+                type="file"
                 className="form-control"
-                name="resume"
-                value={formData.resume}
-                onChange={handleChange}
+                accept=".pdf,.doc,.docx"
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    resume: e.target.files[0],
+                  }))
+                }
               />
             </div>
 

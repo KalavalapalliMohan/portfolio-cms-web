@@ -20,62 +20,94 @@ const Certificates = () => {
     }
   };
 
+  const formatDate = (date) => {
+    if (!date) return "-";
+
+    return new Date(date).toLocaleDateString("en-US", {
+      month: "long",
+      year: "numeric",
+    });
+  };
+
   return (
-    <section id="certificates" className="resume section">
+    <section id="certificates" className="section light-background">
       <div className="container section-title" data-aos="fade-up">
         <h2>Certificates</h2>
+
         <p>
-          Professional certifications that validate my technical skills and
-          continuous learning.
+          Professional certifications that demonstrate my technical knowledge,
+          continuous learning and commitment to software development excellence.
         </p>
       </div>
 
       <div className="container" data-aos="fade-up" data-aos-delay="100">
-        <div className="row">
-          <div className="col-lg-12">
-            <h3 className="resume-title">Professional Certificates</h3>
-
-            {loading ? (
-              <p>Loading certificates...</p>
-            ) : certificates.length === 0 ? (
-              <p>No certificates found.</p>
-            ) : (
-              certificates.map((certificate) => (
-                <div className="resume-item" key={certificate.id}>
-                  <h4>{certificate.title}</h4>
-
-                  <h5>{certificate.issue_date}</h5>
-
-                  <p>
-                    <em>{certificate.organization}</em>
-                  </p>
-
-                  {certificate.certificate_image_url && (
+        {loading ? (
+          <div className="text-center">
+            <p>Loading certificates...</p>
+          </div>
+        ) : certificates.length === 0 ? (
+          <div className="text-center">
+            <p>No certificates available.</p>
+          </div>
+        ) : (
+          <div className="row gy-4">
+            {certificates.map((certificate) => (
+              <div className="col-lg-6 col-md-6" key={certificate.id}>
+                <div className="card h-100 shadow-sm border-0">
+                  {certificate.certificate_image_url ? (
                     <img
                       src={certificate.certificate_image_url}
                       alt={certificate.title}
-                      className="img-fluid rounded shadow-sm mt-3 mb-3"
-                      style={{ maxWidth: "350px" }}
+                      className="card-img-top"
+                      style={{
+                        height: "220px",
+                        objectFit: "cover",
+                      }}
                     />
+                  ) : (
+                    <div
+                      className="d-flex align-items-center justify-content-center bg-light"
+                      style={{ height: "220px" }}
+                    >
+                      <i
+                        className="bi bi-patch-check-fill"
+                        style={{
+                          fontSize: "70px",
+                          color: "#149ddd",
+                        }}
+                      ></i>
+                    </div>
                   )}
 
-                  {certificate.certificate_url && (
-                    <div>
+                  <div className="card-body">
+                    <h4 className="card-title">{certificate.title}</h4>
+
+                    <span className="badge bg-primary mb-3">
+                      {certificate.organization}
+                    </span>
+
+                    <p className="text-muted mb-3">
+                      <i className="bi bi-calendar-event"></i>{" "}
+                      {formatDate(certificate.issue_date)}
+                    </p>
+
+                    {certificate.certificate_url && (
                       <a
                         href={certificate.certificate_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn btn-primary btn-sm"
+                        className="btn btn-primary"
                       >
+                        <i className="bi bi-box-arrow-up-right me-2"></i>
                         View Certificate
                       </a>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
-              ))
-            )}
+              </div>
+            ))}
           </div>
-        </div>
+        )}
       </div>
     </section>
   );

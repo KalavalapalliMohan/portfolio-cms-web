@@ -27,6 +27,7 @@ import EducationList from "./admin/pages/education/EducationList";
 import CertificateList from "./admin/pages/certificates/CertificateList";
 import Settings from "./admin/pages/settings/Settings";
 import MessageList from "./admin/pages/messages/MessageList";
+import SocialLinks from "./admin/pages/social-links/SocialLinks";
 
 function PortfolioWebsite() {
   return (
@@ -85,9 +86,13 @@ function App() {
 
           <Route path="certificates" element={<CertificateList />} />
 
-          <Route path="settings" element={<Settings />} />
+
+          <Route path="social-links" element={<SocialLinks />} />
 
           <Route path="messages" element={<MessageList />} />
+
+          <Route path="settings" element={<Settings />} />
+
         </Route>
       </Route>
     </Routes>

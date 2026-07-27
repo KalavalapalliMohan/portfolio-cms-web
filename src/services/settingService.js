@@ -9,6 +9,16 @@ const settingService = {
         return response.data;
     },
 
+    createSettings: async (data) => {
+        const response = await api.post("/admin/settings", data, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+        });
+
+        return response.data;
+    },
+
     updateSettings: async(id,data)=>{
         const response = await api.post(
             `/admin/settings/${id}`,

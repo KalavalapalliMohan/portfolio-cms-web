@@ -1,114 +1,86 @@
+import { useEffect, useState } from "react";
+
+import skillService from "../services/skillService";
+
 function Skills() {
+  const [skills, setSkills] = useState([]);
+
+  useEffect(() => {
+    fetchSkills();
+  }, []);
+
+  const fetchSkills = async () => {
+    try {
+      const response = await skillService.getSkills();
+
+      setSkills(response.data);
+    } catch (error) {
+      console.error("Failed to load skills", error);
+    }
+  };
+
+  // Split skills into two columns
+
+  const leftSkills = skills.slice(0, Math.ceil(skills.length / 2));
+
+  const rightSkills = skills.slice(Math.ceil(skills.length / 2));
+
+  const SkillItem = ({ skill }) => (
+    <div className="progress">
+      <span className="skill">
+        <span>{skill.name}</span>
+
+        <i className="val">{skill.percentage}%</i>
+      </span>
+
+      <div className="progress-bar-wrap">
+        <div
+          className="progress-bar"
+          role="progressbar"
+          style={{
+            width: `${skill.percentage}%`,
+          }}
+          aria-valuenow={skill.percentage}
+          aria-valuemin="0"
+          aria-valuemax="100"
+        />
+      </div>
+    </div>
+  );
+
   return (
-        <section id="skills" className="skills section light-background">
-          {/* Section Title */}
-          <div className="container section-title" data-aos="fade-up">
-            <h2>Skills</h2>
-            <p>
-              Necessitatibus eius consequatur ex aliquid fuga eum quidem sint
-              consectetur velit
-            </p>
+    <section id="skills" className="skills section light-background">
+      {/* Section Title */}
+
+      <div className="container section-title" data-aos="fade-up">
+        <h2>Skills</h2>
+
+        <p>
+          Technologies and tools I use to build scalable web applications and
+          modern digital solutions.
+        </p>
+      </div>
+
+      <div className="container" data-aos="fade-up" data-aos-delay="100">
+        <div className="row skills-content skills-animation">
+          {/* Left Column */}
+
+          <div className="col-lg-6">
+            {leftSkills.map((skill) => (
+              <SkillItem key={skill.id} skill={skill} />
+            ))}
           </div>
-          {/* End Section Title */}
-          <div className="container" data-aos="fade-up" data-aos-delay={100}>
-            <div className="row skills-content skills-animation">
-              <div className="col-lg-6">
-                <div className="progress">
-                  <span className="skill">
-                    <span>Laravel</span> <i className="val">90%</i>
-                  </span>
-                  <div className="progress-bar-wrap">
-                    <div
-                      className="progress-bar"
-                      role="progressbar"
-                      aria-valuenow={100}
-                      aria-valuemin={0}
-                      aria-valuemax={100}
-                    />
-                  </div>
-                </div>
-                {/* End Skills Item */}
-                <div className="progress">
-                  <span className="skill">
-                    <span>PHP</span> <i className="val">90%</i>
-                  </span>
-                  <div className="progress-bar-wrap">
-                    <div
-                      className="progress-bar"
-                      role="progressbar"
-                      aria-valuenow={90}
-                      aria-valuemin={0}
-                      aria-valuemax={100}
-                    />
-                  </div>
-                </div>
-                {/* End Skills Item */}
-                <div className="progress">
-                  <span className="skill">
-                    <span>React</span> <i className="val">70%</i>
-                  </span>
-                  <div className="progress-bar-wrap">
-                    <div
-                      className="progress-bar"
-                      role="progressbar"
-                      aria-valuenow={75}
-                      aria-valuemin={0}
-                      aria-valuemax={100}
-                    />
-                  </div>
-                </div>
-                {/* End Skills Item */}
-              </div>
-              <div className="col-lg-6">
-                <div className="progress">
-                  <span className="skill">
-                    <span>PostgreSQL</span> <i className="val">75%</i>
-                  </span>
-                  <div className="progress-bar-wrap">
-                    <div
-                      className="progress-bar"
-                      role="progressbar"
-                      aria-valuenow={80}
-                      aria-valuemin={0}
-                      aria-valuemax={100}
-                    />
-                  </div>
-                </div>
-                {/* End Skills Item */}
-                <div className="progress">
-                  <span className="skill">
-                    <span>javaScript</span> <i className="val">70%</i>
-                  </span>
-                  <div className="progress-bar-wrap">
-                    <div
-                      className="progress-bar"
-                      role="progressbar"
-                      aria-valuenow={90}
-                      aria-valuemin={0}
-                      aria-valuemax={100}
-                    />
-                  </div>
-                </div>
-                {/* End Skills Item */}
-                <div className="progress">
-                  <span className="skill">
-                    <span>HTML</span> <i className="val">90%</i>
-                  </span>
-                  <div className="progress-bar-wrap">
-                    <div
-                      className="progress-bar"
-                      role="progressbar"
-                      aria-valuenow={55}
-                      aria-valuemin={0}
-                      aria-valuemax={100}
-                    />
-                  </div>
-                </div>
-                {/* End Skills Item */}
-              </div>
-            </div>
+
+          {/* Right Column */}
+
+          <div className="col-lg-6">
+            {rightSkills.map((skill) => (
+              <SkillItem key={skill.id} skill={skill} />
+            ))}
           </div>
-        </section>
+        </div>
+      </div>
+    </section>
   );
 }
 

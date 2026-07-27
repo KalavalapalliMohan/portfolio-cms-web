@@ -39,9 +39,8 @@ function Sidebar() {
               <img
                 className=""
                 src={
-                  settings?.profile_image
-                    ? `http://127.0.0.1:8000/storage/settings/${settings.profile_image}`
-                    : "/admin-assets/img/user.jpeg"
+                  settings?.profile_image_url ||
+                  "/admin-assets/img/user.jpeg"
                 }
                 alt="User"
                 style={{ width: 50, height: 65 }}
@@ -134,6 +133,16 @@ function Sidebar() {
             >
               <i className="fa fa-certificate me-2"></i>
               Certificates
+            </NavLink>
+
+            <NavLink
+              to="/admin/social-links"
+              className={({ isActive }) =>
+                `nav-item nav-link ${isActive ? "active" : ""}`
+              }
+            >
+              <i className="fa fa-share-alt me-2"></i>
+              Social Links
             </NavLink>
 
             <NavLink
