@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 const api = axios.create({
-    baseURL: "http://127.0.0.1:8000/api",
+    baseURL: import.meta.env.VITE_API_URL,
     headers:{
         Accept:"application/json",
         "Content-Type":"application/json"
@@ -29,16 +29,19 @@ api.interceptors.request.use(
 
 
 api.interceptors.response.use(
-    (response) => {
+    (response)=>{
         return response;
     },
-    (error) => {
-        if (error.response && error.response.status === 401) {
+    (error)=>{
+
+        if(error.response && error.response.status === 401){
+
             localStorage.removeItem("token");
 
-            if (window.location.pathname.startsWith("/admin")) {
-                window.location.href = "/admin/login";
+            if(window.location.pathname.startsWith("/admin")){
+                window.location.href="/admin/login";
             }
+
         }
 
         return Promise.reject(error);
