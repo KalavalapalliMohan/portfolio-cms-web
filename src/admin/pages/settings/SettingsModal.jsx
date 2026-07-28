@@ -35,7 +35,7 @@ function SettingsModal({ settings, onSuccess }) {
 
         about: settings.about || "",
 
-        resume: settings.resume || "",
+        resume: null,
 
         profile_image: null,
       });
@@ -77,9 +77,14 @@ const handleSubmit = async (e) => {
     const data = new FormData();
 
     Object.keys(formData).forEach((key) => {
-      if (formData[key] !== null) {
+
+      if (
+        formData[key] !== null &&
+        formData[key] !== ""
+      ) {
         data.append(key, formData[key]);
       }
+
     });
 
     if (settings && settings.id) {

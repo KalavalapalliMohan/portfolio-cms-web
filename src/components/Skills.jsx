@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import skillService from "../services/skillService";
+import skillService from "../services/publicSkillService";
 
 function Skills() {
   const [skills, setSkills] = useState([]);
