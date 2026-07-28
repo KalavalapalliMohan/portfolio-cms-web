@@ -184,11 +184,10 @@ function Navbar() {
           >
             <img
               className="rounded-circle me-2"
-              src={
-                settings?.profile_image
-                  ? `http://127.0.0.1:8000/storage/settings/${settings.profile_image}`
-                  : "/admin-assets/img/user.jpeg"
-              }
+                src={
+                  settings?.profile_image_url ||
+                  "/admin-assets/img/user.jpeg"
+                }
               alt="Profile"
               width="40"
               height="40"
