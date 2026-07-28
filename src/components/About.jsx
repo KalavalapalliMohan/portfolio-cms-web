@@ -39,7 +39,7 @@ function About() {
           <div className="col-lg-4">
             <img
               src={
-                settings?.profile_image_url || "/assets/img/user.jpeg"
+                settings?.profile_image_url || "/assets/img/mohan.jpeg"
               }
               className="img-fluid rounded"
               alt={settings?.full_name || "Profile Image"}
