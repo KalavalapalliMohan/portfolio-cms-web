@@ -1279,3 +1279,30 @@ section,
 .starter-section {
   /* Add your styles here */
 }
+
+
+
+.portfolio-card,
+.service-item,
+.card {
+    transition: all 0.4s ease;
+}
+
+
+.portfolio-card:hover,
+.service-item:hover,
+.card:hover {
+    transform: translateY(-10px);
+}
+
+
+.portfolio-card img,
+.card img {
+    transition: transform 0.5s ease;
+}
+
+
+.portfolio-card:hover img,
+.card:hover img {
+    transform: scale(1.05);
+}
