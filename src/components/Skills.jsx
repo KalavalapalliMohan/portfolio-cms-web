@@ -1,24 +1,4 @@
-import { useEffect, useState } from "react";
-
-import skillService from "../services/publicSkillService";
-
-function Skills() {
-  const [skills, setSkills] = useState([]);
-
-  useEffect(() => {
-    fetchSkills();
-  }, []);
-
-  const fetchSkills = async () => {
-    try {
-      const response = await skillService.getSkills();
-
-      setSkills(response.data);
-    } catch (error) {
-      console.error("Failed to load skills", error);
-    }
-  };
-
+function Skills({ skills = [] }) {
   // Split skills into two columns
 
   const leftSkills = skills.slice(0, Math.ceil(skills.length / 2));

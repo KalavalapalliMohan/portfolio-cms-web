@@ -7,6 +7,7 @@ function Services() {
       description:
         "Building scalable Laravel applications with clean architecture, reusable code, authentication, authorization, and RESTful APIs.",
     },
+
     {
       id: 2,
       icon: "bi bi-diagram-3",
@@ -14,6 +15,7 @@ function Services() {
       description:
         "Designing secure, high-performance REST APIs using Laravel Sanctum, API Resources, Form Requests, and Swagger documentation.",
     },
+
     {
       id: 3,
       icon: "bi bi-window-stack",
@@ -21,6 +23,7 @@ function Services() {
       description:
         "Creating responsive React applications with reusable components, Axios integration, protected routes, and modern UI practices.",
     },
+
     {
       id: 4,
       icon: "bi bi-database",
@@ -28,6 +31,7 @@ function Services() {
       description:
         "Designing and optimizing MySQL & PostgreSQL databases with indexing, relationships, migrations, and performance tuning.",
     },
+
     {
       id: 5,
       icon: "bi bi-credit-card",
@@ -35,6 +39,7 @@ function Services() {
       description:
         "Integrating Razorpay, payment gateways, email services, and external APIs to extend application functionality.",
     },
+
     {
       id: 6,
       icon: "bi bi-cloud-upload",
@@ -55,16 +60,24 @@ function Services() {
         </p>
       </div>
 
-      <div className="container">
+      <div className="container" data-aos="fade-up" data-aos-delay="100">
         <div className="row gy-4">
           {services.map((service, index) => (
             <div
               key={service.id}
-              className="col-lg-4 col-md-6"
+              className="
+                col-lg-4
+                col-md-6
+                "
               data-aos="fade-up"
               data-aos-delay={(index + 1) * 100}
             >
-              <div className="service-item h-100">
+              <div
+                className="
+                  service-item
+                  h-100
+                  "
+              >
                 <div className="icon">
                   <i className={service.icon}></i>
                 </div>

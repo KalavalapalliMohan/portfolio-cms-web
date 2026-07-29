@@ -12,9 +12,12 @@ const Certificates = () => {
   const fetchCertificates = async () => {
     try {
       const response = await api.get("/certificates");
-      setCertificates(response.data.data);
+
+      setCertificates(response.data.data || []);
     } catch (error) {
       console.error("Certificate API Error:", error);
+
+      setCertificates([]);
     } finally {
       setLoading(false);
     }
@@ -30,7 +33,10 @@ const Certificates = () => {
   };
 
   return (
-    <section id="certificates" className="section light-background">
+    <section
+      id="certificates"
+      className="certificates section light-background"
+    >
       <div className="container section-title" data-aos="fade-up">
         <h2>Certificates</h2>
 
@@ -42,8 +48,8 @@ const Certificates = () => {
 
       <div className="container" data-aos="fade-up" data-aos-delay="100">
         {loading ? (
-          <div className="text-center">
-            <p>Loading certificates...</p>
+          <div className="text-center py-5">
+            <div id="preloader"></div>
           </div>
         ) : certificates.length === 0 ? (
           <div className="text-center">
@@ -57,8 +63,9 @@ const Certificates = () => {
                   {certificate.certificate_image_url ? (
                     <img
                       src={certificate.certificate_image_url}
-                      alt={certificate.title}
+                      alt={certificate.title || "Certificate"}
                       className="card-img-top"
+                      loading="lazy"
                       style={{
                         height: "220px",
                         objectFit: "cover",
@@ -66,14 +73,23 @@ const Certificates = () => {
                     />
                   ) : (
                     <div
-                      className="d-flex align-items-center justify-content-center bg-light"
-                      style={{ height: "220px" }}
+                      className="
+                            d-flex
+                            align-items-center
+                            justify-content-center
+                            bg-light
+                            "
+                      style={{
+                        height: "220px",
+                      }}
                     >
                       <i
-                        className="bi bi-patch-check-fill"
+                        className="
+                              bi
+                              bi-patch-check-fill
+                              "
                         style={{
                           fontSize: "70px",
-                          color: "#149ddd",
                         }}
                       ></i>
                     </div>
@@ -82,9 +98,11 @@ const Certificates = () => {
                   <div className="card-body">
                     <h4 className="card-title">{certificate.title}</h4>
 
-                    <span className="badge bg-primary mb-3">
-                      {certificate.organization}
-                    </span>
+                    {certificate.organization && (
+                      <span className="badge bg-primary mb-3">
+                        {certificate.organization}
+                      </span>
+                    )}
 
                     <p className="text-muted mb-3">
                       <i className="bi bi-calendar-event"></i>{" "}
@@ -98,7 +116,13 @@ const Certificates = () => {
                         rel="noopener noreferrer"
                         className="btn btn-primary"
                       >
-                        <i className="bi bi-box-arrow-up-right me-2"></i>
+                        <i
+                          className="
+                              bi
+                              bi-box-arrow-up-right
+                              me-2
+                              "
+                        ></i>
                         View Certificate
                       </a>
                     )}

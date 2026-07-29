@@ -13,19 +13,23 @@ function Portfolio() {
   const fetchProjects = async () => {
     try {
       const response = await api.get("/projects");
-      setProjects(response.data.data);
+
+      setProjects(response.data.data || []);
     } catch (error) {
       console.error("Project API Error:", error);
+
+      setProjects([]);
     } finally {
       setLoading(false);
     }
   };
 
-  const getDescriptionList = (description = "") =>
-    description
+  const getDescriptionList = (description = "") => {
+    return description
       .split("\n")
       .map((item) => item.replace("•", "").trim())
       .filter(Boolean);
+  };
 
   const technologyBadges = (technologies) => {
     if (!technologies) return null;
@@ -51,7 +55,11 @@ function Portfolio() {
       <div className="container" data-aos="fade-up" data-aos-delay="100">
         {loading ? (
           <div className="text-center py-5">
-            <h5>Loading Projects...</h5>
+            <div id="preloader"></div>
+          </div>
+        ) : projects.length === 0 ? (
+          <div className="text-center">
+            <p>No projects available.</p>
           </div>
         ) : (
           <div className="row gy-4">
@@ -60,38 +68,65 @@ function Portfolio() {
 
               return (
                 <div className="col-lg-6 col-xl-4" key={project.id}>
-                  <div className="card portfolio-card shadow-sm border-0 h-100">
-                    {/* Image */}
-
+                  <div
+                    className="
+                        card
+                        portfolio-card
+                        shadow-sm
+                        border-0
+                        h-100
+                        "
+                  >
                     {project.image_url ? (
                       <img
                         src={project.image_url}
-                        alt={project.title}
+                        alt={project.title || "Project"}
                         className="card-img-top"
+                        loading="lazy"
                         style={{
-                          height: 220,
+                          height: "220px",
                           objectFit: "cover",
                         }}
                       />
                     ) : (
                       <div
-                        className="bg-light d-flex align-items-center justify-content-center"
+                        className="
+                              bg-light
+                              d-flex
+                              align-items-center
+                              justify-content-center
+                              "
                         style={{
-                          height: 220,
+                          height: "220px",
                         }}
                       >
                         <i
-                          className="bi bi-code-slash"
+                          className="
+                                bi
+                                bi-code-slash
+                                "
                           style={{
-                            fontSize: 70,
-                            color: "#149ddd",
+                            fontSize: "70px",
                           }}
                         ></i>
                       </div>
                     )}
 
-                    <div className="card-body d-flex flex-column">
-                      <div className="d-flex justify-content-between align-items-start mb-3">
+                    <div
+                      className="
+                          card-body
+                          d-flex
+                          flex-column
+                          "
+                    >
+                      <div
+                        className="
+                            d-flex
+                            justify-content-between
+                            align-items-start
+                            mb-3
+                            "
+                      >
                         <h5 className="fw-bold">{project.title}</h5>
 
                         {project.is_featured === 1 && (
@@ -103,7 +138,12 @@ function Portfolio() {
                         {technologyBadges(project.technologies)}
                       </div>
 
-                      <ul className="small project-description">
+                      <ul
+                        className="
+                            small
+                            project-description
+                            "
+                      >
                         {descriptions.slice(0, 3).map((item, index) => (
                           <li key={index}>{item}</li>
                         ))}
@@ -111,7 +151,13 @@ function Portfolio() {
 
                       {descriptions.length > 3 && (
                         <button
-                          className="btn btn-link p-0 text-decoration-none mb-3"
+                          className="
+                                btn
+                                btn-link
+                                p-0
+                                text-decoration-none
+                                mb-3
+                                "
                           data-bs-toggle="modal"
                           data-bs-target="#projectModal"
                           onClick={() => setSelectedProject(project)}
@@ -120,15 +166,32 @@ function Portfolio() {
                         </button>
                       )}
 
-                      <div className="mt-auto d-flex gap-2 flex-wrap">
+                      <div
+                        className="
+                            mt-auto
+                            d-flex
+                            gap-2
+                            flex-wrap
+                            "
+                      >
                         {project.github_url && (
                           <a
                             href={project.github_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="btn btn-dark btn-sm"
+                            className="
+                                  btn
+                                  btn-dark
+                                  btn-sm
+                                  "
                           >
-                            <i className="bi bi-github me-1"></i>
+                            <i
+                              className="
+                                  bi
+                                  bi-github
+                                  me-1
+                                  "
+                            ></i>
                             GitHub
                           </a>
                         )}
@@ -138,9 +201,19 @@ function Portfolio() {
                             href={project.live_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="btn btn-primary btn-sm"
+                            className="
+                                  btn
+                                  btn-primary
+                                  btn-sm
+                                  "
                           >
-                            <i className="bi bi-box-arrow-up-right me-1"></i>
+                            <i
+                              className="
+                                  bi
+                                  bi-box-arrow-up-right
+                                  me-1
+                                  "
+                            ></i>
                             Live Demo
                           </a>
                         )}
@@ -154,7 +227,7 @@ function Portfolio() {
         )}
       </div>
 
-      {/* Modal */}
+      {/* Project Modal */}
 
       <div
         className="modal fade"
@@ -162,7 +235,13 @@ function Portfolio() {
         tabIndex="-1"
         aria-hidden="true"
       >
-        <div className="modal-dialog modal-lg modal-dialog-centered">
+        <div
+          className="
+        modal-dialog
+        modal-lg
+        modal-dialog-centered
+        "
+        >
           <div className="modal-content">
             <div className="modal-header">
               <h4 className="modal-title">{selectedProject?.title}</h4>

@@ -1,29 +1,10 @@
-import { useEffect, useState } from "react";
+import React from "react";
 
-import settingService from "../services/settingService";
-
-function About() {
-  const [settings, setSettings] = useState(null);
-
-  useEffect(() => {
-    fetchSettings();
-  }, []);
-
-  const fetchSettings = async () => {
-    try {
-      const response = await settingService.getSettings();
-
-      // console.log("aboute setting", response)
-
-      setSettings(response.data);
-    } catch (error) {
-      console.error("Failed to load settings", error);
-    }
-  };
-    // console.log("aboute setting", settings)
+function About({ settings }) {
   return (
     <section id="about" className="about section">
       {/* Section Title */}
+
       <div className="container section-title" data-aos="fade-up">
         <h2>About</h2>
 
@@ -36,11 +17,10 @@ function About() {
       <div className="container" data-aos="fade-up" data-aos-delay="100">
         <div className="row gy-4 justify-content-center">
           {/* Profile Image */}
+
           <div className="col-lg-4">
             <img
-              src={
-                settings?.profile_image_url || "/assets/img/mohan.jpeg"
-              }
+              src={settings?.profile_image_url || "/assets/img/mohan.jpeg"}
               className="img-fluid rounded"
               alt={settings?.full_name || "Profile Image"}
               loading="lazy"
@@ -48,6 +28,7 @@ function About() {
           </div>
 
           {/* Content */}
+
           <div className="col-lg-8 content">
             <h2>{settings?.title || "Full Stack Laravel Developer"}</h2>
 
@@ -59,6 +40,7 @@ function About() {
 
             <div className="row">
               {/* Left Details */}
+
               <div className="col-lg-6">
                 <ul>
                   <li>
@@ -96,6 +78,7 @@ function About() {
               </div>
 
               {/* Right Details */}
+
               <div className="col-lg-6">
                 <ul>
                   <li>
