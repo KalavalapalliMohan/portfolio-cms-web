@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import settingService from "./services/settingService";
 import projectService from "./services/projectService";
 import publicSkillService from "./services/publicSkillService";
-import experienceService from "./services/experienceService";
+import publicExperienceService from "./services/publicExperienceService";
 import certificateService from "./services/certificateService";
 import publicSocialLinkService from "./services/publicSocialLinkService";
 
@@ -74,7 +74,7 @@ function PortfolioWebsite() {
 
           projectService.getProjects(),
 
-          experienceService.getExperiences(),
+          publicExperienceService.getExperiences(),
 
           certificateService.getCertificates(),
 
