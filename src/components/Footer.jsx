@@ -13,35 +13,53 @@ function Footer() {
       const response = await settingService.getSettings();
       setSettings(response.data.data);
     } catch (error) {
-      console.error("Failed to load settings:", error);
+      console.error(error);
     }
   };
 
   return (
-    <footer
-      id="footer"
-      className="footer position-relative py-4"
-      style={{
-        background: "#f8f9fa",
-        borderTop: "1px solid #e9ecef",
-      }}
-    >
-      <div className="container text-center">
+    <footer id="footer" className="footer">
+      <div className="container">
+        <h3>{settings?.full_name || "Mohan Kalavalapalli"}</h3>
 
-        <h6 className="fw-bold mb-2">
-          {settings?.full_name || "Mohan Kalavalapalli"}
-        </h6>
-
-        <p className="text-muted mb-2">
-          {settings?.title || "Full Stack Laravel Developer"}
+        <p className="footer-tagline">
+          {settings?.title || "PHP Laravel Full Stack Developer"}
         </p>
 
-        <p className="small text-muted mb-0">
+        <div className="footer-social">
+          <a href="https://github.com/" target="_blank" rel="noreferrer">
+            <i className="bi bi-github"></i>
+          </a>
+
+          <a href="https://linkedin.com/" target="_blank" rel="noreferrer">
+            <i className="bi bi-linkedin"></i>
+          </a>
+
+          <a href={`mailto:${settings?.email}`}>
+            <i className="bi bi-envelope-fill"></i>
+          </a>
+
+          <a href={`tel:${settings?.phone}`}>
+            <i className="bi bi-telephone-fill"></i>
+          </a>
+        </div>
+
+        <div className="footer-tech">
+          <span>Laravel</span>
+
+          <span>React</span>
+
+          <span>REST API</span>
+
+          <span>MySQL</span>
+        </div>
+
+        <div className="copyright">
           © {new Date().getFullYear()}{" "}
-          <strong>{settings?.full_name || "Mohan Kalavalapalli"}</strong>. All
-          Rights Reserved.
-        </p>
-
+          <strong>{settings?.full_name || "Mohan Kalavalapalli"}</strong>
+          <br />
+          All Rights Reserved.
+        </div>
       </div>
     </footer>
   );

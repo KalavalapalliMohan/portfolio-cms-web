@@ -8,15 +8,15 @@ function Header({ settings, socialLinks = [] }) {
     const sections = document.querySelectorAll("section[id]");
 
     const handleScroll = () => {
-      const scrollY = window.scrollY + 150;
+      const scrollPosition = window.scrollY + 180;
 
       sections.forEach((section) => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
-        const sectionId = section.getAttribute("id");
+        const top = section.offsetTop;
+        const height = section.offsetHeight;
+        const id = section.getAttribute("id");
 
-        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-          setActiveSection(sectionId);
+        if (scrollPosition >= top && scrollPosition < top + height) {
+          setActiveSection(id);
         }
       });
     };
@@ -25,62 +25,53 @@ function Header({ settings, socialLinks = [] }) {
 
     handleScroll();
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const toggleMobileMenu = () => {
-    document.querySelector("#header").classList.toggle("header-show");
+    document.getElementById("header")?.classList.toggle("header-show");
   };
 
   const closeMobileMenu = () => {
-    document.querySelector("#header").classList.remove("header-show");
+    document.getElementById("header")?.classList.remove("header-show");
   };
 
   const menuItems = [
     {
       id: "hero",
-      icon: "bi-house",
+      icon: "bi-house-door",
       label: "Home",
     },
-
     {
       id: "about",
       icon: "bi-person",
       label: "About",
     },
-
     {
       id: "skills",
       icon: "bi-bar-chart",
       label: "Skills",
     },
-
     {
       id: "resume",
       icon: "bi-file-earmark-text",
       label: "Resume",
     },
-
     {
       id: "certificates",
       icon: "bi-award",
       label: "Certificates",
     },
-
     {
       id: "portfolio",
       icon: "bi-images",
       label: "Portfolio",
     },
-
     {
       id: "services",
-      icon: "bi-hdd-stack",
+      icon: "bi-grid",
       label: "Services",
     },
-
     {
       id: "contact",
       icon: "bi-envelope",
@@ -89,20 +80,23 @@ function Header({ settings, socialLinks = [] }) {
   ];
 
   return (
-    <header id="header" className="header dark-background d-flex flex-column">
+    <header id="header" className="header d-flex flex-column">
       {/* Mobile Toggle */}
 
-      <i
-        className="header-toggle d-xl-none bi bi-list"
+      <button
+        className="header-toggle d-xl-none"
         onClick={toggleMobileMenu}
-      />
+        aria-label="Toggle Navigation"
+      >
+        <i className="bi bi-list"></i>
+      </button>
 
       {/* Profile */}
 
       <div className="profile-img">
         <img
           src={settings?.profile_image_url || "/assets/img/mohan.jpeg"}
-          alt={settings?.full_name || "Mohan Kalavalapalli"}
+          alt={settings?.full_name || "Profile"}
           className="img-fluid rounded-circle"
           loading="lazy"
         />
@@ -110,26 +104,27 @@ function Header({ settings, socialLinks = [] }) {
 
       {/* Logo */}
 
-      <Link
-        to="/"
-        className="logo d-flex align-items-center justify-content-center"
-      >
+      <Link to="/" className="logo text-center">
         <h1 className="sitename">
           {settings?.full_name || "Mohan Kalavalapalli"}
         </h1>
+
+        <span className="designation">
+          {settings?.title || "Laravel Full Stack Developer"}
+        </span>
       </Link>
 
-      {/* Social Links */}
+      {/* Social */}
 
-      <div className="social-links text-center">
+      <div className="social-links">
         {socialLinks.length > 0 ? (
           socialLinks.map((item) => (
             <a
               key={item.id}
               href={item.url}
-              className={item.platform?.toLowerCase()}
               target="_blank"
               rel="noopener noreferrer"
+              title={item.platform}
             >
               <i className={item.icon}></i>
             </a>
@@ -137,19 +132,15 @@ function Header({ settings, socialLinks = [] }) {
         ) : (
           <>
             <a href="#">
-              <i className="bi bi-linkedin"></i>
-            </a>
-
-            <a href="#">
               <i className="bi bi-github"></i>
             </a>
 
             <a href="#">
-              <i className="bi bi-twitter-x"></i>
+              <i className="bi bi-linkedin"></i>
             </a>
 
             <a href="#">
-              <i className="bi bi-instagram"></i>
+              <i className="bi bi-envelope-fill"></i>
             </a>
           </>
         )}
@@ -166,7 +157,6 @@ function Header({ settings, socialLinks = [] }) {
                 className={activeSection === item.id ? "active" : ""}
                 onClick={() => {
                   setActiveSection(item.id);
-
                   closeMobileMenu();
                 }}
               >

@@ -13,11 +13,9 @@ function Portfolio() {
   const fetchProjects = async () => {
     try {
       const response = await api.get("/projects");
-
       setProjects(response.data.data || []);
     } catch (error) {
       console.error("Project API Error:", error);
-
       setProjects([]);
     } finally {
       setLoading(false);
@@ -35,7 +33,7 @@ function Portfolio() {
     if (!technologies) return null;
 
     return technologies.split("|").map((tech, index) => (
-      <span key={index} className="badge bg-primary me-2 mb-2">
+      <span key={index} className="portfolio-tech-badge">
         {tech.trim()}
       </span>
     ));
@@ -48,11 +46,11 @@ function Portfolio() {
 
         <p>
           A collection of projects showcasing my experience in Laravel, React,
-          REST APIs, MySQL and scalable enterprise applications.
+          REST APIs, PostgreSQL and enterprise web applications.
         </p>
       </div>
 
-      <div className="container" data-aos="fade-up" data-aos-delay="100">
+      <div className="container">
         {loading ? (
           <div className="text-center py-5">
             <div id="preloader"></div>
@@ -63,101 +61,51 @@ function Portfolio() {
           </div>
         ) : (
           <div className="row gy-4">
-            {projects.map((project) => {
+            {projects.map((project, index) => {
               const descriptions = getDescriptionList(project.description);
 
               return (
-                <div className="col-lg-6 col-xl-4" key={project.id}>
-                  <div
-                    className="
-                        card
-                        portfolio-card
-                        shadow-sm
-                        border-0
-                        h-100
-                        "
-                  >
-                    {project.image_url ? (
-                      <img
-                        src={project.image_url}
-                        alt={project.title || "Project"}
-                        className="card-img-top"
-                        loading="lazy"
-                        style={{
-                          height: "220px",
-                          objectFit: "cover",
-                        }}
-                      />
-                    ) : (
-                      <div
-                        className="
-                              bg-light
-                              d-flex
-                              align-items-center
-                              justify-content-center
-                              "
-                        style={{
-                          height: "220px",
-                        }}
-                      >
-                        <i
-                          className="
-                                bi
-                                bi-code-slash
-                                "
-                          style={{
-                            fontSize: "70px",
-                          }}
-                        ></i>
-                      </div>
-                    )}
+                <div
+                  className="col-lg-6 col-xl-4"
+                  key={project.id}
+                  data-aos="zoom-in-up"
+                  data-aos-delay={index * 100}
+                >
+                  <div className="portfolio-card">
+                    <div className="portfolio-image">
+                      {project.image_url ? (
+                        <img
+                          src={project.image_url}
+                          alt={project.title}
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div className="portfolio-placeholder">
+                          <i className="bi bi-code-slash"></i>
+                        </div>
+                      )}
 
-                    <div
-                      className="
-                          card-body
-                          d-flex
-                          flex-column
-                          "
-                    >
-                      <div
-                        className="
-                            d-flex
-                            justify-content-between
-                            align-items-start
-                            mb-3
-                            "
-                      >
-                        <h5 className="fw-bold">{project.title}</h5>
+                      {project.is_featured === 1 && (
+                        <span className="featured-ribbon">Featured</span>
+                      )}
+                    </div>
 
-                        {project.is_featured === 1 && (
-                          <span className="badge bg-success">Featured</span>
-                        )}
-                      </div>
+                    <div className="portfolio-body">
+                      <h4>{project.title}</h4>
 
                       <div className="mb-3">
                         {technologyBadges(project.technologies)}
                       </div>
 
-                      <ul
-                        className="
-                            small
-                            project-description
-                            "
-                      >
-                        {descriptions.slice(0, 3).map((item, index) => (
-                          <li key={index}>{item}</li>
+                      <ul className="project-description">
+                        {descriptions.slice(0, 3).map((item, i) => (
+                          <li key={i}>{item}</li>
                         ))}
                       </ul>
 
                       {descriptions.length > 3 && (
                         <button
-                          className="
-                                btn
-                                btn-link
-                                p-0
-                                text-decoration-none
-                                mb-3
-                                "
+                          className="portfolio-readmore"
                           data-bs-toggle="modal"
                           data-bs-target="#projectModal"
                           onClick={() => setSelectedProject(project)}
@@ -166,32 +114,15 @@ function Portfolio() {
                         </button>
                       )}
 
-                      <div
-                        className="
-                            mt-auto
-                            d-flex
-                            gap-2
-                            flex-wrap
-                            "
-                      >
+                      <div className="portfolio-buttons">
                         {project.github_url && (
                           <a
                             href={project.github_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="
-                                  btn
-                                  btn-dark
-                                  btn-sm
-                                  "
+                            className="btn btn-dark btn-sm"
                           >
-                            <i
-                              className="
-                                  bi
-                                  bi-github
-                                  me-1
-                                  "
-                            ></i>
+                            <i className="bi bi-github me-2"></i>
                             GitHub
                           </a>
                         )}
@@ -201,19 +132,9 @@ function Portfolio() {
                             href={project.live_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="
-                                  btn
-                                  btn-primary
-                                  btn-sm
-                                  "
+                            className="btn btn-primary btn-sm"
                           >
-                            <i
-                              className="
-                                  bi
-                                  bi-box-arrow-up-right
-                                  me-1
-                                  "
-                            ></i>
+                            <i className="bi bi-box-arrow-up-right me-2"></i>
                             Live Demo
                           </a>
                         )}
@@ -227,7 +148,7 @@ function Portfolio() {
         )}
       </div>
 
-      {/* Project Modal */}
+      {/* Modal */}
 
       <div
         className="modal fade"
@@ -235,13 +156,7 @@ function Portfolio() {
         tabIndex="-1"
         aria-hidden="true"
       >
-        <div
-          className="
-        modal-dialog
-        modal-lg
-        modal-dialog-centered
-        "
-        >
+        <div className="modal-dialog modal-lg modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
               <h4 className="modal-title">{selectedProject?.title}</h4>
@@ -254,7 +169,7 @@ function Portfolio() {
             </div>
 
             <div className="modal-body">
-              <div className="mb-3">
+              <div className="mb-4">
                 {technologyBadges(selectedProject?.technologies)}
               </div>
 

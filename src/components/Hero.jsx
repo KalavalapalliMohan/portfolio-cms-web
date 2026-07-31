@@ -1,98 +1,73 @@
 function Hero({ settings }) {
-
   return (
-    <section id="hero" className="hero section dark-background">
-
+    <section id="hero" className="hero section">
       <img
-        src={
-          settings?.profile_image_url ||
-          "/assets/img/mohan.jpeg"
-        }
-        alt="Mohan Kalavalapalli"
-        data-aos="fade-in"
+        src={settings?.profile_image_url || "/assets/img/mohan.jpeg"}
+        alt={settings?.full_name || "Mohan Kalavalapalli"}
+        className="hero-bg-image"
+        loading="eager"
+        decoding="async"
+        data-aos="zoom-out"
+        data-aos-duration="1200"
       />
 
+      <div className="hero-overlay"></div>
 
-      <div className="container" data-aos="fade-up" data-aos-delay="100">
+      <div className="container">
+        <div className="hero-content">
+          <h1 data-aos="fade-up" data-aos-delay="100">
+            {settings?.full_name || "Mohan Kalavalapalli"}
+          </h1>
 
-        <h2>
-          {settings?.full_name || "Mohan Kalavalapalli"}
-        </h2>
-
-
-        <p>
-          I'm a{" "}
-
-          <span
-            className="typed"
-            data-typed-items="
+          <p className="hero-title" data-aos="fade-up" data-aos-delay="250">
+            I'm a{" "}
+            <span
+              className="typed"
+              data-typed-items="
               Laravel Developer,
               Full Stack Developer,
               REST API Developer,
               React Developer
             "
-          >
-            {settings?.title || "PHP Laravel Full Stack Developer"}
-          </span>
-
-
-          <span
-            className="typed-cursor typed-cursor--blink"
-            aria-hidden="true"
-          />
-
-        </p>
-
-
-
-        <div className="hero-buttons mt-4">
-
-
-          <a
-            href="#portfolio"
-            className="btn btn-primary me-3"
-          >
-            View Projects
-          </a>
-
-
-
-          {settings?.resume_url && (
-
-            <a
-              href={settings.resume_url}
-              target="_blank"
-              rel="noreferrer"
-              className="btn btn-outline-light"
-              download
             >
-              Download Resume
-            </a>
-
-          )}
-
-
-        </div>
-
-
-
-        <div className="mt-4">
-
-          <p className="hero-description">
-
-            Building scalable web applications, REST APIs and modern digital
-            solutions using Laravel, React and database technologies.
-
+              {settings?.title || "PHP Laravel Full Stack Developer"}
+            </span>
+            <span
+              className="typed-cursor typed-cursor--blink"
+              aria-hidden="true"
+            />
           </p>
 
+          <p
+            className="hero-description"
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
+            Passionate Full Stack Developer specializing in Laravel, React, REST
+            APIs, PostgreSQL, and modern cloud-based web applications.
+          </p>
+
+          <div className="hero-buttons" data-aos="fade-up" data-aos-delay="550">
+            <a href="#portfolio" className="btn btn-primary">
+              View Projects
+            </a>
+
+            {settings?.resume_url && (
+              <a
+                href={settings.resume_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+                className="btn btn-outline-light"
+              >
+                Download Resume
+              </a>
+            )}
+          </div>
         </div>
-
-
       </div>
-
     </section>
   );
 }
-
 
 export default Hero;

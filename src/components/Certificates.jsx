@@ -12,11 +12,9 @@ const Certificates = () => {
   const fetchCertificates = async () => {
     try {
       const response = await api.get("/certificates");
-
       setCertificates(response.data.data || []);
     } catch (error) {
       console.error("Certificate API Error:", error);
-
       setCertificates([]);
     } finally {
       setLoading(false);
@@ -46,7 +44,7 @@ const Certificates = () => {
         </p>
       </div>
 
-      <div className="container" data-aos="fade-up" data-aos-delay="100">
+      <div className="container">
         {loading ? (
           <div className="text-center py-5">
             <div id="preloader"></div>
@@ -57,55 +55,38 @@ const Certificates = () => {
           </div>
         ) : (
           <div className="row gy-4">
-            {certificates.map((certificate) => (
-              <div className="col-lg-6 col-md-6" key={certificate.id}>
-                <div className="card h-100 shadow-sm border-0">
+            {certificates.map((certificate, index) => (
+              <div
+                className="col-lg-6 col-md-6"
+                key={certificate.id}
+                data-aos="zoom-in-up"
+                data-aos-delay={index * 100}
+              >
+                <div className="certificate-card h-100">
                   {certificate.certificate_image_url ? (
                     <img
                       src={certificate.certificate_image_url}
-                      alt={certificate.title || "Certificate"}
-                      className="card-img-top"
+                      alt={certificate.title}
+                      className="certificate-image"
                       loading="lazy"
-                      style={{
-                        height: "220px",
-                        objectFit: "cover",
-                      }}
                     />
                   ) : (
-                    <div
-                      className="
-                            d-flex
-                            align-items-center
-                            justify-content-center
-                            bg-light
-                            "
-                      style={{
-                        height: "220px",
-                      }}
-                    >
-                      <i
-                        className="
-                              bi
-                              bi-patch-check-fill
-                              "
-                        style={{
-                          fontSize: "70px",
-                        }}
-                      ></i>
+                    <div className="certificate-placeholder">
+                      <i className="bi bi-patch-check-fill"></i>
                     </div>
                   )}
 
-                  <div className="card-body">
-                    <h4 className="card-title">{certificate.title}</h4>
+                  <div className="certificate-content">
+                    <h4>{certificate.title}</h4>
 
                     {certificate.organization && (
-                      <span className="badge bg-primary mb-3">
+                      <span className="certificate-badge">
                         {certificate.organization}
                       </span>
                     )}
 
-                    <p className="text-muted mb-3">
-                      <i className="bi bi-calendar-event"></i>{" "}
+                    <p className="certificate-date">
+                      <i className="bi bi-calendar-event me-2"></i>
                       {formatDate(certificate.issue_date)}
                     </p>
 
@@ -116,13 +97,7 @@ const Certificates = () => {
                         rel="noopener noreferrer"
                         className="btn btn-primary"
                       >
-                        <i
-                          className="
-                              bi
-                              bi-box-arrow-up-right
-                              me-2
-                              "
-                        ></i>
+                        <i className="bi bi-box-arrow-up-right me-2"></i>
                         View Certificate
                       </a>
                     )}

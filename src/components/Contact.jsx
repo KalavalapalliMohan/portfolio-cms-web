@@ -23,7 +23,7 @@ function Contact() {
       const response = await settingService.getSettings();
       setSettings(response.data);
     } catch (error) {
-      console.error("Settings Error:", error);
+      console.error(error);
     }
   };
 
@@ -63,19 +63,21 @@ function Contact() {
         <h2>Contact</h2>
 
         <p>
-          Have a project, freelance opportunity or full-time position? Feel free
-          to contact me anytime.
+          Have a project, freelance opportunity or a full-time position? I'd
+          love to hear from you. Let's build something amazing together.
         </p>
       </div>
 
-      <div className="container" data-aos="fade-up" data-aos-delay="100">
+      <div className="container">
         <div className="row gy-4">
-          {/* Left */}
+          {/* LEFT */}
 
-          <div className="col-lg-5">
-            <div className="info-wrap shadow-sm">
-              <div className="info-item d-flex">
-                <i className="bi bi-geo-alt"></i>
+          <div className="col-lg-5" data-aos="fade-right">
+            <div className="info-wrap">
+              <div className="info-item">
+                <div className="info-icon">
+                  <i className="bi bi-geo-alt-fill"></i>
+                </div>
 
                 <div>
                   <h3>Location</h3>
@@ -84,8 +86,10 @@ function Contact() {
                 </div>
               </div>
 
-              <div className="info-item d-flex">
-                <i className="bi bi-telephone"></i>
+              <div className="info-item">
+                <div className="info-icon">
+                  <i className="bi bi-telephone-fill"></i>
+                </div>
 
                 <div>
                   <h3>Phone</h3>
@@ -94,8 +98,10 @@ function Contact() {
                 </div>
               </div>
 
-              <div className="info-item d-flex">
-                <i className="bi bi-envelope"></i>
+              <div className="info-item">
+                <div className="info-icon">
+                  <i className="bi bi-envelope-fill"></i>
+                </div>
 
                 <div>
                   <h3>Email</h3>
@@ -104,24 +110,20 @@ function Contact() {
                 </div>
               </div>
 
-              <iframe
-                title="Google Map"
-                src="https://maps.google.com/maps?q=Visakhapatnam&t=&z=11&ie=UTF8&iwloc=&output=embed"
-                loading="lazy"
-                style={{
-                  border: 0,
-                  width: "100%",
-                  height: "280px",
-                  borderRadius: "10px",
-                }}
-              ></iframe>
+              <div className="contact-map">
+                <iframe
+                  title="Google Map"
+                  src="https://maps.google.com/maps?q=Visakhapatnam&t=&z=11&ie=UTF8&iwloc=&output=embed"
+                  loading="lazy"
+                ></iframe>
+              </div>
             </div>
           </div>
 
-          {/* Right */}
+          {/* RIGHT */}
 
-          <div className="col-lg-7">
-            <form onSubmit={handleSubmit} className="php-email-form shadow-sm">
+          <div className="col-lg-7" data-aos="fade-left" data-aos-delay="100">
+            <form onSubmit={handleSubmit} className="php-email-form">
               <div className="row gy-4">
                 <div className="col-md-6">
                   <label className="form-label">Full Name</label>
@@ -130,7 +132,7 @@ function Contact() {
                     type="text"
                     name="name"
                     className="form-control"
-                    placeholder="Enter your name"
+                    placeholder="Enter your full name"
                     value={form.name}
                     onChange={handleChange}
                     required
@@ -179,13 +181,23 @@ function Contact() {
                   ></textarea>
                 </div>
 
-                <div className="col-md-12 text-center">
+                <div className="col-md-12">
                   <button
-                    className="btn btn-primary px-5"
-                    disabled={loading}
                     type="submit"
+                    className="contact-btn"
+                    disabled={loading}
                   >
-                    {loading ? "Sending..." : "Send Message"}
+                    {loading ? (
+                      <>
+                        <span className="spinner-border spinner-border-sm me-2"></span>
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        <i className="bi bi-send-fill me-2"></i>
+                        Send Message
+                      </>
+                    )}
                   </button>
                 </div>
               </div>

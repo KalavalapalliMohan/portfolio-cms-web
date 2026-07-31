@@ -4,7 +4,6 @@ import api from "../api/axios";
 const Resume = () => {
   const [experiences, setExperiences] = useState([]);
   const [educations, setEducations] = useState([]);
-  const [selectedExperience, setSelectedExperience] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -19,7 +18,6 @@ const Resume = () => {
       ]);
 
       setExperiences(experienceResponse.data.data || []);
-
       setEducations(educationResponse.data.data || []);
     } catch (error) {
       console.error("Resume API Error:", error);
@@ -46,11 +44,11 @@ const Resume = () => {
 
   return (
     <section id="resume" className="resume section">
-      <div className="container section-title">
+      <div className="container section-title" data-aos="fade-up">
         <h2>Resume</h2>
 
         <p>
-          My professional experience, technical expertise and educational
+          My professional experience, technical expertise, and educational
           background.
         </p>
       </div>
@@ -59,21 +57,23 @@ const Resume = () => {
         {loading ? (
           <div id="preloader"></div>
         ) : (
-          <div className="row">
+          <div className="row gy-5">
             {/* Experience */}
 
-            <div className="col-lg-6">
+            <div className="col-lg-6" data-aos="fade-right">
               <h3 className="resume-title">Professional Experience</h3>
 
-              {experiences.map((experience) => (
-                <div className="resume-item" key={experience.id}>
+              {experiences.map((experience, index) => (
+                <div
+                  className="resume-item"
+                  key={experience.id}
+                  data-aos="fade-up"
+                  data-aos-delay={index * 100}
+                >
                   <h4>{experience.designation}</h4>
 
                   <h5>
-                    {formatDate(experience.start_date)}
-
-                    {" - "}
-
+                    {formatDate(experience.start_date)} -{" "}
                     {experience.currently_working
                       ? "Present"
                       : formatDate(experience.end_date)}
@@ -86,8 +86,8 @@ const Resume = () => {
                   <ul>
                     {getDescriptionList(experience.description)
                       .slice(0, 3)
-                      .map((item, index) => (
-                        <li key={index}>{item}</li>
+                      .map((item, i) => (
+                        <li key={i}>{item}</li>
                       ))}
                   </ul>
                 </div>
@@ -96,17 +96,20 @@ const Resume = () => {
 
             {/* Education */}
 
-            <div className="col-lg-6">
+            <div className="col-lg-6" data-aos="fade-left">
               <h3 className="resume-title">Education</h3>
 
-              {educations.map((education) => (
-                <div className="resume-item" key={education.id}>
+              {educations.map((education, index) => (
+                <div
+                  className="resume-item"
+                  key={education.id}
+                  data-aos="fade-up"
+                  data-aos-delay={index * 100}
+                >
                   <h4>{education.degree}</h4>
 
                   <h5>
-                    {education.start_year}
-                    {" - "}
-                    {education.end_year}
+                    {education.start_year} - {education.end_year}
                   </h5>
 
                   <p>
