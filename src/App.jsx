@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 import settingService from "./services/settingService";
 import projectService from "./services/projectService";
@@ -110,6 +111,105 @@ function PortfolioWebsite() {
 
   return (
     <>
+
+      <Helmet>
+        <title>
+          {settings?.full_name
+            ? `${settings.full_name} | Laravel Full Stack Developer`
+            : "Mohan Kalavalapalli | Laravel Full Stack Developer"}
+        </title>
+
+        <meta
+          name="description"
+          content="PHP Laravel Full Stack Developer with 3+ years of experience in Laravel, React, REST APIs, PostgreSQL, MySQL, CRM, HRMS, and modern web application development."
+        />
+
+        <meta
+          name="keywords"
+          content="Mohan Kalavalapalli, PHP Developer, Laravel Developer, Full Stack Developer, React Developer, REST API Developer, PostgreSQL, MySQL, JavaScript, Bootstrap, CRM Development, HRMS Development, Portfolio Website, Web Developer India"
+        />
+
+        <link
+          rel="canonical"
+          href="https://portfolio-cms-web-five.vercel.app/"
+        />
+
+        {/* Open Graph Tags */}
+
+        <meta
+          property="og:type"
+          content="website"
+        />
+
+        <meta
+          property="og:title"
+          content={
+            settings?.full_name
+              ? `${settings.full_name} | Laravel Full Stack Developer`
+              : "Mohan Kalavalapalli | Laravel Full Stack Developer"
+          }
+        />
+
+        <meta
+          property="og:description"
+          content="PHP Laravel Full Stack Developer with 3+ years of experience in Laravel, React, REST APIs, PostgreSQL, MySQL, CRM, HRMS, and modern web application development."
+        />
+
+        <meta
+          property="og:url"
+          content="https://portfolio-cms-web-five.vercel.app/"
+        />
+
+        <meta
+          property="og:image"
+          content={
+            settings?.profile_image_url ||
+            "https://portfolio-cms-web-five.vercel.app/assets/img/mohan.jpeg"
+          }
+        />
+
+        <meta
+          property="og:site_name"
+          content="Mohan Kalavalapalli Portfolio"
+        />
+
+        <meta
+          property="og:locale"
+          content="en_US"
+        />
+
+        {/* Twitter Card Tags */}
+
+        {/* <meta
+          name="twitter:card"
+          content="summary_large_image"
+        />
+
+        <meta
+          name="twitter:title"
+          content={
+            settings?.full_name
+              ? `${settings.full_name} | Laravel Full Stack Developer`
+              : "Mohan Kalavalapalli | Laravel Full Stack Developer"
+          }
+        />
+
+        <meta
+          name="twitter:description"
+          content="PHP Laravel Full Stack Developer with 3+ years of experience in Laravel, React, REST APIs, PostgreSQL, MySQL, CRM, HRMS, and modern web application development."
+        />
+
+        <meta
+          name="twitter:image"
+          content={
+            settings?.profile_image_url ||
+            "https://portfolio-cms-web-five.vercel.app/assets/img/mohan.jpeg"
+          }
+        /> */}
+
+        
+      </Helmet>
+
       <Header settings={settings} socialLinks={socialLinks} />
 
       <main>
