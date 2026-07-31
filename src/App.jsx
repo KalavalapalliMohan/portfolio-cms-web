@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
@@ -9,15 +9,9 @@ import publicExperienceService from "./services/publicExperienceService";
 import certificateService from "./services/certificateService";
 import publicSocialLinkService from "./services/publicSocialLinkService";
 
+import Loader from "./components/Loader";
+
 import Header from "./components/Header";
-import Hero from "./components/Hero";
-import About from "./components/About";
-import Skills from "./components/Skills";
-import Resume from "./components/Resume";
-import Certificates from "./components/Certificates";
-import Portfolio from "./components/Portfolio";
-import Services from "./components/Services";
-import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
 import AdminLayout from "./admin/layouts/AdminLayout";
@@ -26,17 +20,50 @@ import AdminAuthLayout from "./admin/layouts/AdminAuthLayout";
 import ProtectedRoute from "./admin/layouts/ProtectedRoute";
 import GuestRoute from "./admin/layouts/GuestRoute";
 
-import Login from "./admin/pages/Login";
-import Dashboard from "./admin/pages/Dashboard";
+// ===============================
+// Public Components Lazy Loading
+// ===============================
 
-import ProjectList from "./admin/pages/projects/ProjectList";
-import SkillList from "./admin/pages/skills/SkillList";
-import ExperienceList from "./admin/pages/experiences/ExperienceList";
-import EducationList from "./admin/pages/education/EducationList";
-import CertificateList from "./admin/pages/certificates/CertificateList";
-import Settings from "./admin/pages/settings/Settings";
-import MessageList from "./admin/pages/messages/MessageList";
-import SocialLinks from "./admin/pages/social-links/SocialLinks";
+const Hero = lazy(() => import("./components/Hero"));
+const About = lazy(() => import("./components/About"));
+const Skills = lazy(() => import("./components/Skills"));
+const Resume = lazy(() => import("./components/Resume"));
+const Certificates = lazy(() => import("./components/Certificates"));
+const Portfolio = lazy(() => import("./components/Portfolio"));
+const Services = lazy(() => import("./components/Services"));
+const Contact = lazy(() => import("./components/Contact"));
+
+// ===============================
+// Admin Lazy Loading
+// ===============================
+
+const Login = lazy(() => import("./admin/pages/Login"));
+
+const Dashboard = lazy(() => import("./admin/pages/Dashboard"));
+
+const ProjectList = lazy(() => import("./admin/pages/projects/ProjectList"));
+
+const SkillList = lazy(() => import("./admin/pages/skills/SkillList"));
+
+const ExperienceList = lazy(
+  () => import("./admin/pages/experiences/ExperienceList"),
+);
+
+const EducationList = lazy(
+  () => import("./admin/pages/education/EducationList"),
+);
+
+const CertificateList = lazy(
+  () => import("./admin/pages/certificates/CertificateList"),
+);
+
+const Settings = lazy(() => import("./admin/pages/settings/Settings"));
+
+const MessageList = lazy(() => import("./admin/pages/messages/MessageList"));
+
+const SocialLinks = lazy(
+  () => import("./admin/pages/social-links/SocialLinks"),
+);
 
 function PortfolioWebsite() {
   const [loading, setLoading] = useState(true);
@@ -58,15 +85,10 @@ function PortfolioWebsite() {
       try {
         const [
           settingsResponse,
-
           skillsResponse,
-
           projectsResponse,
-
           experiencesResponse,
-
           certificatesResponse,
-
           socialLinksResponse,
         ] = await Promise.all([
           settingService.getSettings(),
@@ -81,8 +103,6 @@ function PortfolioWebsite() {
 
           publicSocialLinkService.getSocialLinks(),
         ]);
-
-        // console.log("Settings API:", settingsResponse);
 
         setSettings(settingsResponse.data);
 
@@ -106,12 +126,11 @@ function PortfolioWebsite() {
   }, []);
 
   if (loading) {
-    return <div id="preloader"></div>;
+    return <Loader />;
   }
 
   return (
     <>
-
       <Helmet>
         <title>
           {settings?.full_name
@@ -134,12 +153,7 @@ function PortfolioWebsite() {
           href="https://portfolio-cms-web-five.vercel.app/"
         />
 
-        {/* Open Graph Tags */}
-
-        <meta
-          property="og:type"
-          content="website"
-        />
+        <meta property="og:type" content="website" />
 
         <meta
           property="og:title"
@@ -152,7 +166,7 @@ function PortfolioWebsite() {
 
         <meta
           property="og:description"
-          content="PHP Laravel Full Stack Developer with 3+ years of experience in Laravel, React, REST APIs, PostgreSQL, MySQL, CRM, HRMS, and modern web application development."
+          content="PHP Laravel Full Stack Developer with 3+ years of experience."
         />
 
         <meta
@@ -164,50 +178,11 @@ function PortfolioWebsite() {
           property="og:image"
           content={
             settings?.profile_image_url ||
-            "https://portfolio-cms-web-five.vercel.app/assets/img/mohan.jpeg"
+            "https://portfolio-cms-web-five.vercel.app/assets/img/mohan.webp"
           }
         />
 
-        <meta
-          property="og:site_name"
-          content="Mohan Kalavalapalli Portfolio"
-        />
-
-        <meta
-          property="og:locale"
-          content="en_US"
-        />
-
-        {/* Twitter Card Tags */}
-
-        {/* <meta
-          name="twitter:card"
-          content="summary_large_image"
-        />
-
-        <meta
-          name="twitter:title"
-          content={
-            settings?.full_name
-              ? `${settings.full_name} | Laravel Full Stack Developer`
-              : "Mohan Kalavalapalli | Laravel Full Stack Developer"
-          }
-        />
-
-        <meta
-          name="twitter:description"
-          content="PHP Laravel Full Stack Developer with 3+ years of experience in Laravel, React, REST APIs, PostgreSQL, MySQL, CRM, HRMS, and modern web application development."
-        />
-
-        <meta
-          name="twitter:image"
-          content={
-            settings?.profile_image_url ||
-            "https://portfolio-cms-web-five.vercel.app/assets/img/mohan.jpeg"
-          }
-        /> */}
-
-        
+        <meta property="og:site_name" content="Mohan Kalavalapalli Portfolio" />
       </Helmet>
 
       <Header settings={settings} socialLinks={socialLinks} />
@@ -237,45 +212,41 @@ function PortfolioWebsite() {
 
 function App() {
   return (
-    <Routes>
-      {/* Public Portfolio */}
+    <Suspense fallback={<Loader />}>
+      <Routes>
+        <Route path="/" element={<PortfolioWebsite />} />
 
-      <Route path="/" element={<PortfolioWebsite />} />
-
-      {/* Guest Routes */}
-
-      <Route element={<GuestRoute />}>
-        <Route element={<AdminAuthLayout />}>
-          <Route path="/admin/login" element={<Login />} />
+        <Route element={<GuestRoute />}>
+          <Route element={<AdminAuthLayout />}>
+            <Route path="/admin/login" element={<Login />} />
+          </Route>
         </Route>
-      </Route>
 
-      {/* Protected Admin Routes */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<Dashboard />} />
 
-      <Route element={<ProtectedRoute />}>
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<Dashboard />} />
+            <Route path="dashboard" element={<Dashboard />} />
 
-          <Route path="dashboard" element={<Dashboard />} />
+            <Route path="projects" element={<ProjectList />} />
 
-          <Route path="projects" element={<ProjectList />} />
+            <Route path="skills" element={<SkillList />} />
 
-          <Route path="skills" element={<SkillList />} />
+            <Route path="experiences" element={<ExperienceList />} />
 
-          <Route path="experiences" element={<ExperienceList />} />
+            <Route path="educations" element={<EducationList />} />
 
-          <Route path="educations" element={<EducationList />} />
+            <Route path="certificates" element={<CertificateList />} />
 
-          <Route path="certificates" element={<CertificateList />} />
+            <Route path="social-links" element={<SocialLinks />} />
 
-          <Route path="social-links" element={<SocialLinks />} />
+            <Route path="messages" element={<MessageList />} />
 
-          <Route path="messages" element={<MessageList />} />
-
-          <Route path="settings" element={<Settings />} />
+            <Route path="settings" element={<Settings />} />
+          </Route>
         </Route>
-      </Route>
-    </Routes>
+      </Routes>
+    </Suspense>
   );
 }
 

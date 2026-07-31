@@ -40,7 +40,7 @@ function Sidebar() {
                 className=""
                 src={
                   settings?.profile_image_url ||
-                  "/admin-assets/img/user.jpeg"
+                  "/admin-assets/img/user.webp"
                 }
                 alt="User"
                 style={{ width: 50, height: 65 }}

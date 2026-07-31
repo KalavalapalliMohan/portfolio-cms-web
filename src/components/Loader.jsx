@@ -1,9 +1,7 @@
-const Loader = () => {
-    return (
-        <div className="loader-wrapper">
-            <div className="spinner"></div>
-        </div>
-    );
-};
+function Loader() {
+  return (
+    <div id="preloader"></div>
+  );
+}
 
 export default Loader;

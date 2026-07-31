@@ -95,7 +95,7 @@ function Header({ settings, socialLinks = [] }) {
 
       <div className="profile-img">
         <img
-          src={settings?.profile_image_url || "/assets/img/mohan.jpeg"}
+          src={settings?.profile_image_url || "/assets/img/mohan.webp"}
           alt={settings?.full_name || "Profile"}
           className="img-fluid rounded-circle"
           loading="lazy"

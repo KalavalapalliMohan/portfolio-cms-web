@@ -28,7 +28,7 @@ function About({ settings }) {
             data-aos-delay="100"
           >
             <img
-              src={settings?.profile_image_url || "/assets/img/mohan.jpeg"}
+              src={settings?.profile_image_url || "/assets/img/mohan.webp"}
               className="img-fluid about-image"
               alt={settings?.full_name || "Profile Image"}
               loading="lazy"

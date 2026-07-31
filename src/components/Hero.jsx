@@ -2,7 +2,7 @@ function Hero({ settings }) {
   return (
     <section id="hero" className="hero section">
       <img
-        src={settings?.profile_image_url || "/assets/img/mohan.jpeg"}
+        src={settings?.profile_image_url || "/assets/img/mohan.webp"}
         alt={settings?.full_name || "Mohan Kalavalapalli"}
         className="hero-bg-image"
         loading="eager"

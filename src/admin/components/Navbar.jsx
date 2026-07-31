@@ -186,7 +186,7 @@ function Navbar() {
               className="rounded-circle me-2"
                 src={
                   settings?.profile_image_url ||
-                  "/admin-assets/img/user.jpeg"
+                  "/admin-assets/img/user.webp"
                 }
               alt="Profile"
               width="40"
