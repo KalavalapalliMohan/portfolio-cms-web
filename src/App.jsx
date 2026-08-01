@@ -11,9 +11,6 @@ import publicSocialLinkService from "./services/publicSocialLinkService";
 
 import Loader from "./components/Loader";
 
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-
 import AdminLayout from "./admin/layouts/AdminLayout";
 import AdminAuthLayout from "./admin/layouts/AdminAuthLayout";
 
@@ -21,16 +18,31 @@ import ProtectedRoute from "./admin/layouts/ProtectedRoute";
 import GuestRoute from "./admin/layouts/GuestRoute";
 
 // ===============================
+// Common Components Lazy Loading
+// ===============================
+
+const Header = lazy(() => import("./components/Header"));
+
+const Footer = lazy(() => import("./components/Footer"));
+
+// ===============================
 // Public Components Lazy Loading
 // ===============================
 
 const Hero = lazy(() => import("./components/Hero"));
+
 const About = lazy(() => import("./components/About"));
+
 const Skills = lazy(() => import("./components/Skills"));
+
 const Resume = lazy(() => import("./components/Resume"));
+
 const Certificates = lazy(() => import("./components/Certificates"));
+
 const Portfolio = lazy(() => import("./components/Portfolio"));
+
 const Services = lazy(() => import("./components/Services"));
+
 const Contact = lazy(() => import("./components/Contact"));
 
 // ===============================
@@ -165,24 +177,12 @@ function PortfolioWebsite() {
         />
 
         <meta
-          property="og:description"
-          content="PHP Laravel Full Stack Developer with 3+ years of experience."
-        />
-
-        <meta
-          property="og:url"
-          content="https://portfolio-cms-web-five.vercel.app/"
-        />
-
-        <meta
           property="og:image"
           content={
             settings?.profile_image_url ||
             "https://portfolio-cms-web-five.vercel.app/assets/img/mohan.webp"
           }
         />
-
-        <meta property="og:site_name" content="Mohan Kalavalapalli Portfolio" />
       </Helmet>
 
       <Header settings={settings} socialLinks={socialLinks} />

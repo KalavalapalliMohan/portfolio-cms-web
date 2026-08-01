@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import api from "../api/axios";
 
 function Portfolio() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedProject, setSelectedProject] = useState(null);
+  const closeButtonRef = useRef(null);
 
   useEffect(() => {
     fetchProjects();
@@ -77,6 +78,8 @@ function Portfolio() {
                         <img
                           src={project.image_url}
                           alt={project.title}
+                          width="600"
+                          height="400"
                           loading="lazy"
                         />
                       ) : (
@@ -162,10 +165,12 @@ function Portfolio() {
               <h4 className="modal-title">{selectedProject?.title}</h4>
 
               <button
+                ref={closeButtonRef}
                 type="button"
                 className="btn-close"
                 data-bs-dismiss="modal"
-              ></button>
+                onClick={() => closeButtonRef.current?.blur()}
+              />
             </div>
 
             <div className="modal-body">

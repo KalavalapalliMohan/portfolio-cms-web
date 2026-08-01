@@ -98,7 +98,10 @@ function Header({ settings, socialLinks = [] }) {
           src={settings?.profile_image_url || "/assets/img/mohan.webp"}
           alt={settings?.full_name || "Profile"}
           className="img-fluid rounded-circle"
+          width="100"
+          height="100"
           loading="lazy"
+          decoding="async"
         />
       </div>
 
@@ -129,6 +132,7 @@ function Header({ settings, socialLinks = [] }) {
               <i className={item.icon}></i>
             </a>
           ))
+          
         ) : (
           <>
             <a href="#">
@@ -144,6 +148,14 @@ function Header({ settings, socialLinks = [] }) {
             </a>
           </>
         )}
+
+        <a href={`mailto:${settings?.email}`}>
+          <i className="bi bi-envelope-fill"></i>
+        </a>
+
+        <a href={`tel:${settings?.phone}`}>
+          <i className="bi bi-telephone-fill"></i>
+        </a>
       </div>
 
       {/* Navigation */}

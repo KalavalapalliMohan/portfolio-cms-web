@@ -31,7 +31,10 @@ function About({ settings }) {
               src={settings?.profile_image_url || "/assets/img/mohan.webp"}
               className="img-fluid about-image"
               alt={settings?.full_name || "Profile Image"}
+              width="400"
+              height="400"
               loading="lazy"
+              decoding="async"
             />
           </div>
 

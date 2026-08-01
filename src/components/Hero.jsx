@@ -5,7 +5,10 @@ function Hero({ settings }) {
         src={settings?.profile_image_url || "/assets/img/mohan.webp"}
         alt={settings?.full_name || "Mohan Kalavalapalli"}
         className="hero-bg-image"
+        width="400"
+        height="400"
         loading="eager"
+        fetchPriority="high"
         decoding="async"
         data-aos="zoom-out"
         data-aos-duration="1200"

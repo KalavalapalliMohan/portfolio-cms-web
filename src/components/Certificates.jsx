@@ -68,7 +68,10 @@ const Certificates = () => {
                       src={certificate.certificate_image_url}
                       alt={certificate.title}
                       className="certificate-image"
+                      width="600"
+                      height="400"
                       loading="lazy"
+                      decoding="async"
                     />
                   ) : (
                     <div className="certificate-placeholder">
