@@ -26,7 +26,6 @@ function AdminLayout() {
     const cssFiles = [
       "/admin-assets/css/bootstrap.min.css",
       "/admin-assets/css/style.css",
-      "/admin-assets/lib/owlcarousel/assets/owl.carousel.min.css",
     ];
 
 
@@ -54,15 +53,6 @@ function AdminLayout() {
 
       // Chart
       "/admin-assets/lib/chart/chart.min.js",
-
-
-      // jQuery plugins
-      "/admin-assets/lib/easing/easing.min.js",
-
-      "/admin-assets/lib/waypoints/waypoints.min.js",
-
-      "/admin-assets/lib/owlcarousel/owl.carousel.min.js",
-
 
       // DarkPan main js
       "/admin-assets/js/main.js",

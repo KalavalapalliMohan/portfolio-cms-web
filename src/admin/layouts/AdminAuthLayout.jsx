@@ -6,7 +6,6 @@ function AdminAuthLayout() {
   useEffect(() => {
 
     const cssFiles = [
-      "/admin-assets/lib/owlcarousel/assets/owl.carousel.min.css",
       "/admin-assets/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css",
       "/admin-assets/css/bootstrap.min.css",
       "/admin-assets/css/style.css",
@@ -25,9 +24,6 @@ function AdminAuthLayout() {
       "https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js",
 
       "/admin-assets/lib/chart/chart.min.js",
-      "/admin-assets/lib/easing/easing.min.js",
-      "/admin-assets/lib/waypoints/waypoints.min.js",
-      "/admin-assets/lib/owlcarousel/owl.carousel.min.js",
       "/admin-assets/lib/tempusdominus/js/moment.min.js",
       "/admin-assets/lib/tempusdominus/js/moment-timezone.min.js",
       "/admin-assets/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js",
