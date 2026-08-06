@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import socialLinkService from "../../../services/socialLinkService";
+import Swal from "sweetalert2";
 
 function SocialLinkModal({
   show,
@@ -57,11 +58,23 @@ function SocialLinkModal({
           formData
         );
 
-        alert("Social Link Updated Successfully");
+        Swal.fire({
+          icon: "success",
+          title: "Updated!",
+          text: "Social link updated successfully.",
+          timer: 1800,
+          showConfirmButton: false,
+        });
       } else {
         await socialLinkService.createSocialLink(formData);
 
-        alert("Social Link Created Successfully");
+        Swal.fire({
+          icon: "success",
+          title: "Created!",
+          text: "Social link created successfully.",
+          timer: 1800,
+          showConfirmButton: false,
+        });
       }
 
       if (onSuccess) {
@@ -71,7 +84,14 @@ function SocialLinkModal({
       onClose();
     } catch (error) {
       console.error(error);
-      alert(JSON.stringify(error.response?.data, null, 2));
+
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text:
+          error.response?.data?.message ||
+          "Something went wrong. Please try again.",
+      });
     } finally {
       setLoading(false);
     }
@@ -86,9 +106,9 @@ function SocialLinkModal({
       }}
     >
       <div className="modal-dialog modal-lg modal-dialog-centered">
-        <div className="modal-content bg-secondary text-white">
+        <div className="modal-content admin-modal text-white">
 
-          <div className="modal-header">
+          <div className="modal-header admin-modal-header">
             <h5 className="modal-title">
               {socialLink ? "Edit Social Link" : "Add Social Link"}
             </h5>
@@ -102,7 +122,7 @@ function SocialLinkModal({
 
           <form onSubmit={handleSubmit}>
 
-            <div className="modal-body">
+            <div className="modal-body admin-modal-body">
 
               <div className="mb-3">
                 <label className="form-label">
@@ -172,11 +192,11 @@ function SocialLinkModal({
 
             </div>
 
-            <div className="modal-footer">
+            <div className="modal-footer admin-modal-footer">
 
               <button
                 type="button"
-                className="btn btn-danger"
+                className="btn btn-outline-light"
                 onClick={onClose}
               >
                 Cancel
@@ -184,9 +204,10 @@ function SocialLinkModal({
 
               <button
                 type="submit"
-                className="btn btn-primary"
+                className="btn btn-primary global-add-button"
                 disabled={loading}
               >
+                <i className="fa fa-save me-2"></i>
                 {loading
                   ? "Saving..."
                   : socialLink

@@ -3,7 +3,7 @@ function StatisticsCards({ data }) {
     {
       title: "Projects",
       value: data?.total_projects ?? 0,
-      icon: "fa fa-folder",
+      icon: "fa fa-folder-open",
       color: "primary",
     },
     {
@@ -31,12 +31,15 @@ function StatisticsCards({ data }) {
       <div className="row g-4">
         {cards.map((card, index) => (
           <div className="col-sm-6 col-xl-3" key={index}>
-            <div className="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-              <i className={`${card.icon} fa-3x text-${card.color}`}></i>
+            <div className="stats-card">
+              <div className={`stats-icon bg-${card.color}`}>
+                <i className={card.icon}></i>
+              </div>
 
-              <div className="ms-3">
-                <p className="mb-2">{card.title}</p>
-                <h6 className="mb-0">{card.value}</h6>
+              <div className="stats-content">
+                <span className="stats-title">{card.title}</span>
+
+                <h3 className="stats-value">{card.value}</h3>
               </div>
             </div>
           </div>

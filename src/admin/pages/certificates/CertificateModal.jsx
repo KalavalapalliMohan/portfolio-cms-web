@@ -75,50 +75,40 @@ function CertificateModal({ show, onClose, onSuccess, certificate }) {
 
     try {
       setLoading(true);
-
       const data = new FormData();
-
       data.append("title", formData.title);
-
       data.append("organization", formData.organization);
-
       data.append("issue_date", formData.issue_date);
-
       data.append("certificate_url", formData.certificate_url || "");
-
       if (formData.image) {
         data.append("certificate_image", formData.image);
       }
-
-      console.log("FORM DATA");
-
+      // console.log("FORM DATA");
       for (let pair of data.entries()) {
         console.log(pair[0], pair[1]);
       }
-
       if (certificate) {
         await certificateService.updateCertificate(
           certificate.id,
-
-          data,
+          data
         );
 
         Swal.fire({
           icon: "success",
-
-          title: "Updated",
-
-          text: "Certificate updated successfully",
+          title: "Updated!",
+          text: "Certificate updated successfully.",
+          timer: 1800,
+          showConfirmButton: false,
         });
       } else {
         await certificateService.createCertificate(data);
 
         Swal.fire({
           icon: "success",
-
-          title: "Created",
-
-          text: "Certificate created successfully",
+          title: "Created!",
+          text: "Certificate created successfully.",
+          timer: 1800,
+          showConfirmButton: false,
         });
       }
 
@@ -128,22 +118,14 @@ function CertificateModal({ show, onClose, onSuccess, certificate }) {
 
       onClose();
     } catch (error) {
-      console.log("FULL ERROR:", error);
-
-      console.log("VALIDATION:", error.response?.data);
+      console.log(error);
 
       Swal.fire({
         icon: "error",
-
-        title: "Error",
-
-        html: `
-
-                <pre style="text-align:left">
-                ${JSON.stringify(error.response?.data, null, 2)}
-                </pre>
-
-                `,
+        title: "Oops...",
+        text:
+          error.response?.data?.message ||
+          "Something went wrong. Please try again.",
       });
     } finally {
       setLoading(false);
@@ -160,8 +142,8 @@ function CertificateModal({ show, onClose, onSuccess, certificate }) {
       }}
     >
       <div className="modal-dialog modal-lg modal-dialog-centered">
-        <div className="modal-content bg-secondary text-white">
-          <div className="modal-header">
+        <div className="modal-content bg-secondary text-white admin-modal">
+          <div className="modal-header admin-modal-header">
             <h5 className="modal-title">
               {certificate ? "Edit Certificate" : "Add Certificate"}
             </h5>
@@ -173,7 +155,7 @@ function CertificateModal({ show, onClose, onSuccess, certificate }) {
           </div>
 
           <form onSubmit={handleSubmit}>
-            <div className="modal-body">
+            <div className="modal-body admin-modal-body">
               <div className="row">
                 <div className="col-md-6 mb-3">
                   <label className="form-label">Certificate Name</label>
@@ -242,7 +224,7 @@ function CertificateModal({ show, onClose, onSuccess, certificate }) {
                     <img
                       src={preview}
                       width="120"
-                      className="img-thumbnail"
+                      className="img-thumbnail admin-modal-preview"
                       alt="preview"
                     />
                   </div>
@@ -250,10 +232,10 @@ function CertificateModal({ show, onClose, onSuccess, certificate }) {
               </div>
             </div>
 
-            <div className="modal-footer">
+            <div className="modal-footer admin-modal-footer">
               <button
                 type="button"
-                className="btn btn-danger"
+                className="btn btn-outline-light"
                 onClick={onClose}
               >
                 Cancel
@@ -261,9 +243,10 @@ function CertificateModal({ show, onClose, onSuccess, certificate }) {
 
               <button
                 type="submit"
-                className="btn btn-primary"
+                className="btn btn-primary global-add-button"
                 disabled={loading}
               >
+                <i className="fa fa-save me-2"></i>
                 {loading
                   ? "Saving..."
                   : certificate

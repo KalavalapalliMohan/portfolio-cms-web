@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import educationService from "../../../services/educationService";
+import Swal from "sweetalert2";
 
 
 function EducationModal({ show, onClose, onSuccess, education = null, }) {
@@ -55,36 +56,50 @@ function EducationModal({ show, onClose, onSuccess, education = null, }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       setLoading(true);
+
       if (education) {
         await educationService.updateEducation(
           education.id,
           formData
         );
 
-
-        alert("Education Updated Successfully");
-
-
-
+        Swal.fire({
+          icon: "success",
+          title: "Updated!",
+          text: "Education updated successfully.",
+          timer: 1800,
+          showConfirmButton: false,
+        });
       } else {
         await educationService.createEducation(formData);
-        alert("Education Created Successfully");
+
+        Swal.fire({
+          icon: "success",
+          title: "Created!",
+          text: "Education created successfully.",
+          timer: 1800,
+          showConfirmButton: false,
+        });
       }
+
       if (onSuccess) {
         onSuccess();
       }
+
       onClose();
     } catch (error) {
       console.log(error);
-      alert(
-        JSON.stringify(
-          error.response?.data,
-          null,
-          2
-        )
-      );
+
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text:
+          error.response?.data?.message ||
+          "Something went wrong. Please try again.",
+      });
     } finally {
       setLoading(false);
     }
@@ -101,8 +116,8 @@ function EducationModal({ show, onClose, onSuccess, education = null, }) {
       }}
     >
       <div className="modal-dialog modal-lg modal-dialog-centered">
-        <div className="modal-content bg-secondary text-white">
-          <div className="modal-header">
+        <div className="modal-content bg-secondary text-white admin-modal">
+          <div className="modal-header admin-modal-header">
             <h5 className="modal-title">
               {education
                 ? "Edit Education"
@@ -118,7 +133,7 @@ function EducationModal({ show, onClose, onSuccess, education = null, }) {
           <form onSubmit={handleSubmit}>
             
             <div
-              className="modal-body"
+              className="modal-body admin-modal-body"
               style={{
                 maxHeight: "70vh",
                 overflowY: "auto",
@@ -245,19 +260,20 @@ function EducationModal({ show, onClose, onSuccess, education = null, }) {
               </div>
             </div>
 
-            <div className="modal-footer">
+            <div className="modal-footer admin-modal-footer">
               <button
                 type="button"
-                className="btn btn-danger"
+                className="btn btn-outline-light"
                 onClick={onClose}
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="btn btn-primary"
+                className="btn btn-primary global-add-button"
                 disabled={loading}
               >
+                <i className="fa fa-save me-2"></i>
                 {loading
                   ? "Saving..."
                   : education

@@ -29,10 +29,10 @@ function Sidebar() {
             to="/admin/dashboard"
             className="navbar-brand mx-4 mb-3"
           >
-            <h3 className="text-primary mb-0">
-              <i className="fa fa-laptop-code me-2"></i>
+          <h3 className="mb-0 title-gradient">
+              <i className="fa fa-laptop-code me-2 icon-gradient"></i>
               Portfolio CMS
-            </h3>
+          </h3>
           </Link>
           <div className="d-flex align-items-center ms-4 mb-4">
             <div className="position-relative">
@@ -40,7 +40,7 @@ function Sidebar() {
                 className=""
                 src={
                   settings?.profile_image_url ||
-                  "/admin-assets/img/user.webp"
+                  "/admin-assets/img/mohan.webp"
                 }
                 alt="User"
                 style={{ width: 50, height: 65 }}
@@ -49,13 +49,13 @@ function Sidebar() {
               <div className="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
             </div>
 
-            <div className="ms-3">
+            <div className="ms-3 Admin-gradient">
               <h6 className="mb-0">
-                {settings?.full_name || "Portfolio Admin"}
+                {settings?.full_name || "Mohan Kalavalapalli"}
               </h6>
 
               <small className="text-muted">
-                {settings?.title || "Administrator"}
+                {settings?.title || "Laravel Full Stack Developer"}
               </small>
             </div>
           </div>

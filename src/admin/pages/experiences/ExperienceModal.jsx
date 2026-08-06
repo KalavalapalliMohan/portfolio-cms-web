@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import experienceService from "../../../services/experienceService";
+import Swal from "sweetalert2";
 
 function ExperienceModal({
   show,
@@ -73,11 +74,23 @@ function ExperienceModal({
           payload
         );
 
-        alert("Experience Updated Successfully");
+        Swal.fire({
+          icon: "success",
+          title: "Updated!",
+          text: "Experience updated successfully.",
+          timer: 1800,
+          showConfirmButton: false,
+        });
       } else {
         await experienceService.createExperience(payload);
 
-        alert("Experience Created Successfully");
+        Swal.fire({
+          icon: "success",
+          title: "Created!",
+          text: "Experience created successfully.",
+          timer: 1800,
+          showConfirmButton: false,
+        });
       }
 
       if (onSuccess) {
@@ -88,7 +101,13 @@ function ExperienceModal({
     } catch (error) {
       console.log(error);
 
-      alert(JSON.stringify(error.response?.data, null, 2));
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text:
+          error.response?.data?.message ||
+          "Something went wrong. Please try again.",
+      });
     } finally {
       setLoading(false);
     }
@@ -103,9 +122,9 @@ function ExperienceModal({
       }}
     >
       <div className="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-        <div className="modal-content bg-secondary text-white">
+        <div className="modal-content bg-secondary text-white admin-modal">
 
-          <div className="modal-header">
+          <div className="modal-header admin-modal-header">
             <h5 className="modal-title">
               {experience
                 ? "Edit Experience"
@@ -122,7 +141,7 @@ function ExperienceModal({
           <form onSubmit={handleSubmit}>
 
             <div
-              className="modal-body"
+              className="modal-body admin-modal-body"
               style={{
                 maxHeight: "70vh",
                 overflowY: "auto",
@@ -240,11 +259,11 @@ function ExperienceModal({
               </div>
             </div>
 
-            <div className="modal-footer">
+            <div className="modal-footer admin-modal-footer">
 
               <button
                 type="button"
-                className="btn btn-danger"
+                className="btn btn-outline-light"
                 onClick={onClose}
               >
                 Cancel
@@ -252,9 +271,10 @@ function ExperienceModal({
 
               <button
                 type="submit"
-                className="btn btn-primary"
+                className="btn btn-primary global-add-button"
                 disabled={loading}
               >
+                <i className="fa fa-save me-2"></i>
                 {loading
                   ? "Saving..."
                   : experience

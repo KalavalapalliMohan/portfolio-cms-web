@@ -88,7 +88,7 @@ function Navbar() {
   
 
   return (
-    <nav className="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
+    <nav className="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0 my-nav">
 
       <button
         type="button"
@@ -129,7 +129,7 @@ function Navbar() {
               </span>
           </button>
 
-            <div className="dropdown-menu dropdown-menu-end messages-dropdown bg-secondary border-0 rounded-0 rounded-bottom m-0">
+            <div className="dropdown-menu dropdown-menu-end messages-dropdown bg-secondary border-0 rounded-0 rounded-bottom m-0 my-msg">
 
             {latestMessages.length > 0 ? (
               latestMessages.map((message) => (
@@ -186,7 +186,7 @@ function Navbar() {
               className="rounded-circle me-2"
                 src={
                   settings?.profile_image_url ||
-                  "/admin-assets/img/user.webp"
+                  "/admin-assets/img/mohan.webp"
                 }
               alt="Profile"
               width="40"
@@ -195,7 +195,7 @@ function Navbar() {
 
           </button>
 
-          <div className="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-bottom m-0">
+          <div className="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-bottom m-0 my-pro">
 
             <Link
               to="/admin/settings"

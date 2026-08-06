@@ -9,6 +9,7 @@ function ExperienceList() {
 
   const [showModal, setShowModal] = useState(false);
   const [editExperience, setEditExperience] = useState(null);
+  const [deletingId, setDeletingId] = useState(null);
 
   useEffect(() => {
     fetchExperiences();
@@ -45,10 +46,11 @@ function ExperienceList() {
     if (!result.isConfirmed) return;
 
     try {
+      setDeletingId(id);
       await experienceService.deleteExperience(id);
 
       setExperiences((prev) =>
-        prev.filter((experience) => experience.id !== id)
+        prev.filter((experience) => experience.id !== id),
       );
 
       Swal.fire({
@@ -66,13 +68,23 @@ function ExperienceList() {
         title: "Oops...",
         text: "Delete failed!",
       });
+    }finally {
+      setDeletingId(null);
     }
   };
 
   if (loading) {
     return (
       <div className="container-fluid pt-4 px-4">
-        <h4 className="text-white">Loading Experiences...</h4>
+        <div className="experience-loading">
+          <div className="spinner-border text-primary" role="status"></div>
+
+          <h5 className="mt-3 mb-1">Loading Experiences...</h5>
+
+          <p className="text-muted mb-0">
+            Please wait while we fetch your experience records.
+          </p>
+        </div>
       </div>
     );
   }
@@ -82,28 +94,33 @@ function ExperienceList() {
       <div className="container-fluid pt-4 px-4">
         <div className="row g-4">
           <div className="col-12">
-            <div className="bg-secondary rounded h-100 p-4">
+            <div className="admin-card">
+              <div className="admin-card-header">
+                <div>
+                  <h4 className="mb-2 Admin-gradient">
+                    <i className="fa fa-briefcase me-2 text-primary-icon"></i>
+                    Experience
+                  </h4>
 
-              <div className="d-flex justify-content-between align-items-center mb-4">
-                <h5 className="text-white mb-0">
-                  Experiences
-                </h5>
+                  <p>
+                    Manage your professional work experience.
+                  </p>
+                </div>
 
                 <button
-                  className="btn btn-primary"
+                  className="btn btn-primary global-add-button"
                   onClick={() => {
                     setEditExperience(null);
                     setShowModal(true);
                   }}
                 >
-                  <i className="fa fa-plus me-2"></i>
+                  <i className="fa fa-plus me-2 "></i>
                   Add Experience
                 </button>
               </div>
 
               <div className="table-responsive">
-                <table className="table table-dark table-hover align-middle">
-
+                <table className="table admin-table align-middle">
                   <thead>
                     <tr>
                       <th>#</th>
@@ -112,22 +129,21 @@ function ExperienceList() {
                       <th>Location</th>
                       <th>Start Date</th>
                       <th>End Date</th>
-                      <th>Current</th>
+                      <th>Status</th>
                       <th width="180">Actions</th>
                     </tr>
                   </thead>
-
                   <tbody>
-
                     {experiences.length > 0 ? (
-
                       experiences.map((experience, index) => (
-
                         <tr key={experience.id}>
-
                           <td>{index + 1}</td>
 
-                          <td>{experience.company_name}</td>
+                          <td>
+                            <div className="fw-semibold">
+                              {experience.company_name}
+                            </div>
+                          </td>
 
                           <td>{experience.designation}</td>
 
@@ -143,9 +159,7 @@ function ExperienceList() {
 
                           <td>
                             {experience.currently_working ? (
-                              <span className="badge bg-success">
-                                Working
-                              </span>
+                              <span className="badge bg-success">Working</span>
                             ) : (
                               <span className="badge bg-secondary">
                                 Completed
@@ -154,47 +168,49 @@ function ExperienceList() {
                           </td>
 
                           <td>
-
                             <button
                               className="btn btn-warning btn-sm me-2"
                               onClick={() => handleEdit(experience)}
                             >
-                              Edit
+                              <i className="fa fa-edit me-1"></i>
                             </button>
 
                             <button
                               className="btn btn-danger btn-sm"
-                              onClick={() =>
-                                handleDelete(experience.id)
-                              }
+                              disabled={deletingId === experience.id}
+                              onClick={() => handleDelete(experience.id)}
                             >
-                              Delete
+                              {deletingId === experience.id ? (
+                                <>
+                                  <span className="spinner-border spinner-border-sm me-1"></span>
+                                  Deleting
+                                </>
+                              ) : (
+                                <>
+                                  <i className="fa fa-trash me-1"></i>
+                                </>
+                              )}
                             </button>
-
                           </td>
-
                         </tr>
-
                       ))
-
                     ) : (
-
                       <tr>
-                        <td
-                          colSpan="8"
-                          className="text-center"
-                        >
-                          No Experiences Found
+                        <td colSpan="8" className="text-center py-5">
+                          <i className="fa fa-briefcase fa-3x text-muted mb-3 d-block"></i>
+
+                          <h5 className="mb-2">No Experience Records Found</h5>
+
+                          <p className="text-muted mb-0">
+                            Click "Add Experience" to create your first
+                            experience record.
+                          </p>
                         </td>
                       </tr>
-
                     )}
-
                   </tbody>
-
                 </table>
               </div>
-
             </div>
           </div>
         </div>

@@ -68,122 +68,148 @@ function SettingsModal({ settings, onSuccess }) {
     setPreview(URL.createObjectURL(file));
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  try {
-    setLoading(true);
+    try {
+      setLoading(true);
 
-    const data = new FormData();
+      const data = new FormData();
 
-    Object.keys(formData).forEach((key) => {
+      Object.keys(formData).forEach((key) => {
+        if (formData[key] !== null && formData[key] !== "") {
+          data.append(key, formData[key]);
+        }
+      });
 
-      if (
-        formData[key] !== null &&
-        formData[key] !== ""
-      ) {
-        data.append(key, formData[key]);
+      if (settings && settings.id) {
+        // Update
+        data.append("_method", "PUT");
+        await settingService.updateSettings(settings.id, data);
+      } else {
+        // First Time Create
+        await settingService.createSettings(data);
       }
 
-    });
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: settings
+          ? "Settings updated successfully."
+          : "Settings created successfully.",
+      });
 
-    if (settings && settings.id) {
-      // Update
-      data.append("_method", "PUT");
-      await settingService.updateSettings(settings.id, data);
-    } else {
-      // First Time Create
-      await settingService.createSettings(data);
+      onSuccess && onSuccess();
+    } catch (error) {
+      console.log(error);
+
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.response?.data?.message || "Something went wrong.",
+      });
+    } finally {
+      setLoading(false);
     }
-
-    Swal.fire({
-      icon: "success",
-      title: "Success",
-      text: settings
-        ? "Settings updated successfully."
-        : "Settings created successfully.",
-    });
-
-    onSuccess && onSuccess();
-  } catch (error) {
-    console.log(error);
-
-    Swal.fire({
-      icon: "error",
-      title: "Error",
-      text:
-        error.response?.data?.message ||
-        "Something went wrong.",
-    });
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   return (
     <div className="container-fluid pt-4 px-4">
-      <div className="bg-secondary rounded p-4">
-        <h5 className="text-white mb-4">Website Settings</h5>
+      <div className="settings-card">
+        <div className="settings-header">
+          <div>
+            <h4 className="settings-title Admin-gradient">
+              <i className="fa fa-cogs me-2 text-primary text-primary-icon"></i>
+              Website Settings
+            </h4>
+
+            <p className="settings-subtitle">
+              Manage your portfolio profile, contact information, resume and
+              branding.
+            </p>
+          </div>
+        </div>
 
         <form onSubmit={handleSubmit}>
-          <div className="row">
-            <div className="col-md-6 mb-3">
-              <label className="form-label">Name</label>
+          <div className="row g-4">
+            {/* Full Name */}
+            <div className="col-lg-6">
+              <label className="form-label fw-semibold">Full Name</label>
 
               <input
+                type="text"
                 className="form-control"
                 name="full_name"
+                placeholder="Enter your full name"
                 value={formData.full_name}
                 onChange={handleChange}
+                required
               />
             </div>
 
-            <div className="col-md-6 mb-3">
-              <label className="form-label">Profession</label>
+            {/* Profession */}
+            <div className="col-lg-6">
+              <label className="form-label fw-semibold">
+                Professional Title
+              </label>
 
               <input
+                type="text"
                 className="form-control"
                 name="title"
+                placeholder="PHP Laravel Full Stack Developer"
                 value={formData.title}
                 onChange={handleChange}
+                required
               />
             </div>
 
-            <div className="col-md-6 mb-3">
-              <label>Email</label>
+            {/* Email */}
+            <div className="col-lg-6">
+              <label className="form-label fw-semibold">Email Address</label>
 
               <input
+                type="email"
                 className="form-control"
                 name="email"
+                placeholder="name@example.com"
                 value={formData.email}
                 onChange={handleChange}
+                required
               />
             </div>
 
-            <div className="col-md-6 mb-3">
-              <label>Phone</label>
+            {/* Phone */}
+            <div className="col-lg-6">
+              <label className="form-label fw-semibold">Phone Number</label>
 
               <input
+                type="text"
                 className="form-control"
                 name="phone"
+                placeholder="+91 XXXXX XXXXX"
                 value={formData.phone}
                 onChange={handleChange}
               />
             </div>
 
-            <div className="col-md-6 mb-3">
-              <label>Location</label>
+            {/* Location */}
+            <div className="col-lg-6">
+              <label className="form-label fw-semibold">Location</label>
 
               <input
+                type="text"
                 className="form-control"
                 name="location"
+                placeholder="Visakhapatnam, India"
                 value={formData.location}
                 onChange={handleChange}
               />
             </div>
 
-            <div className="col-md-6 mb-3">
-              <label>Resume</label>
+            {/* Resume */}
+            <div className="col-lg-6">
+              <label className="form-label fw-semibold">Resume</label>
 
               <input
                 type="file"
@@ -196,22 +222,29 @@ const handleSubmit = async (e) => {
                   }))
                 }
               />
+
+              <small className="text-muted">
+                Accepted formats: PDF, DOC, DOCX
+              </small>
             </div>
 
-            <div className="col-12 mb-3">
-              <label>About</label>
+            {/* About */}
+            <div className="col-12">
+              <label className="form-label fw-semibold">About</label>
 
               <textarea
                 className="form-control"
-                rows="5"
+                rows="6"
                 name="about"
+                placeholder="Write a short professional introduction..."
                 value={formData.about}
                 onChange={handleChange}
-              />
+              ></textarea>
             </div>
 
-            <div className="col-md-6 mb-3">
-              <label>Profile Image</label>
+            {/* Profile Image */}
+            <div className="col-lg-6">
+              <label className="form-label fw-semibold">Profile Image</label>
 
               <input
                 type="file"
@@ -219,23 +252,58 @@ const handleSubmit = async (e) => {
                 accept="image/*"
                 onChange={handleImage}
               />
+
+              <small className="text-muted">
+                JPG, PNG or WEBP recommended.
+              </small>
             </div>
 
-            {preview && (
-              <div className="col-md-6 mb-3">
-                <img
-                  src={preview}
-                  width="120"
-                  className="img-thumbnail"
-                  alt="Profile Preview"
-                />
+            {/* Preview */}
+            <div className="col-lg-6">
+              <label className="form-label fw-semibold d-block">Preview</label>
+
+              <div className="settings-preview">
+                {preview ? (
+                  <img
+                    src={preview}
+                    alt="Profile Preview"
+                    className="img-fluid rounded shadow"
+                    style={{
+                      width: "150px",
+                      height: "150px",
+                      objectFit: "cover",
+                    }}
+                  />
+                ) : (
+                  <div className="settings-preview-placeholder">
+                    <i className="fa fa-user-circle fa-4x text-muted mb-3"></i>
+
+                    <p className="text-muted mb-0">No image selected</p>
+                  </div>
+                )}
               </div>
-            )}
+            </div>
           </div>
 
-          <button className="btn btn-primary" disabled={loading}>
-            {loading ? "Saving..." : "Save Changes"}
-          </button>
+          <div className="settings-actions mt-4">
+            <button
+              type="submit"
+              className="btn btn-primary px-4 global-add-button"
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <span className="spinner-border spinner-border-sm me-2"></span>
+                  Saving...
+                </>
+              ) : (
+                <>
+                  <i className="fa fa-save me-2"></i>
+                  Save Changes
+                </>
+              )}
+            </button>
+          </div>
         </form>
       </div>
     </div>
