@@ -90,12 +90,16 @@ function Navbar() {
   return (
     <nav className="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0 my-nav">
 
-      <button
-        type="button"
-        className="sidebar-toggler btn btn-link text-white p-0 border-0"
-      >
-        <i className="fa fa-bars"></i>
-      </button>
+    <button
+      type="button"
+      className="sidebar-toggler btn btn-link text-white p-0 border-0"
+      onClick={() => {
+        document.querySelector(".sidebar")?.classList.toggle("open");
+        document.querySelector(".content")?.classList.toggle("open");
+      }}
+    >
+      <i className="fa fa-bars"></i>
+    </button>
 
       <form className="d-none d-md-flex ms-4">
         <input

@@ -139,63 +139,63 @@ function EducationModal({ show, onClose, onSuccess, education = null, }) {
                 overflowY: "auto",
               }}
             >
-                
-              <div className="mb-3">
-                <label className="form-label">
-                  Institution
-                </label>
-                <input
-                  type="text"
-                  name="institution"
-                  className="form-control"
-                  value={formData.institution}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <div className="mb-3">
-                <label className="form-label">
-                  Degree
-                </label>
-                <input
-                  type="text"
-                  name="degree"
-                  className="form-control"
-                  value={formData.degree}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <div className="mb-3">
-                <label className="form-label">
-                  Field Of Study
-                </label>
-                <input
-                  type="text"
-                  name="field_of_study"
-                  className="form-control"
-                  value={formData.field_of_study}
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div className="mb-3">
-                <label className="form-label">
-                  Grade
-                </label>
-                <input
-                  type="text"
-                  name="grade"
-                  className="form-control"
-                  value={formData.grade}
-                  onChange={handleChange}
-                  placeholder="CGPA / Percentage"
-                />
-              </div>
-
               <div className="row">
+                
+                <div className="col-md-6 mb-3">
+                  <label className="form-label">
+                    Institution
+                  </label>
+                  <input
+                    type="text"
+                    name="institution"
+                    className="form-control"
+                    value={formData.institution}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="col-md-6 mb-3">
+                  <label className="form-label">
+                    Degree
+                  </label>
+                  <input
+                    type="text"
+                    name="degree"
+                    className="form-control"
+                    value={formData.degree}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="col-md-6 mb-3">
+                  <label className="form-label">
+                    Field Of Study
+                  </label>
+                  <input
+                    type="text"
+                    name="field_of_study"
+                    className="form-control"
+                    value={formData.field_of_study}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="col-md-6 mb-3">
+                  <label className="form-label">
+                    Grade
+                  </label>
+                  <input
+                    type="text"
+                    name="grade"
+                    className="form-control"
+                    value={formData.grade}
+                    onChange={handleChange}
+                    placeholder="CGPA / Percentage"
+                  />
+                </div>
+
                 <div className="col-md-6 mb-3">
                   <label className="form-label">
                     Start Year
@@ -209,41 +209,18 @@ function EducationModal({ show, onClose, onSuccess, education = null, }) {
                   />
                 </div>
 
-
-
-
-
-
-
                 <div className="col-md-6 mb-3">
-
-
                   <label className="form-label">
-
                     End Year
-
                   </label>
-
-
-
                   <input
-
                     type="number"
-
                     name="end_year"
-
                     className="form-control"
-
                     value={formData.end_year}
-
                     onChange={handleChange}
-
                   />
-
-
                 </div>
-
-
               </div>
 
               <div className="mb-3">

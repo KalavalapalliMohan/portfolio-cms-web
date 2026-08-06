@@ -62,7 +62,7 @@ function AdminLayout() {
 
     const scripts = [
       "/admin-assets/lib/chart/chart.min.js",
-      "/admin-assets/js/main.js",
+      // "/admin-assets/js/main.js",
     ];
 
     const loadedScripts = [];
