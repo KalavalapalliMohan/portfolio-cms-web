@@ -19,7 +19,7 @@ function Hero({ settings }) {
       <div className="container">
         <div className="hero-content">
           <h1 data-aos="fade-up" data-aos-delay="100">
-            {settings?.full_name || "Mohan Kalavalapalli"}
+            {settings?.full_name}
           </h1>
 
           <p className="hero-title" data-aos="fade-up" data-aos-delay="250">
@@ -33,7 +33,7 @@ function Hero({ settings }) {
               React Developer
             "
             >
-              {settings?.title || "PHP Laravel Full Stack Developer"}
+              {settings?.title}
             </span>
             <span
               className="typed-cursor typed-cursor--blink"

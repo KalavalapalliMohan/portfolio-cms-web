@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import contactService from "../services/contactService";
-import settingService from "../services/settingService";
 
-function Contact() {
-  const [settings, setSettings] = useState(null);
-
+function Contact({ settings }) {
+  // console.log("Contact settings:", settings); 
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -13,19 +11,6 @@ function Contact() {
   });
 
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    fetchSettings();
-  }, []);
-
-  const fetchSettings = async () => {
-    try {
-      const response = await settingService.getSettings();
-      setSettings(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const handleChange = (e) => {
     setForm((prev) => ({
@@ -58,7 +43,7 @@ function Contact() {
   };
 
   return (
-    <section id="contact" className="contact section light-background">
+    <section id="contact" className="contact section">
       <div className="container section-title" data-aos="fade-up">
         <h2>Contact</h2>
 
@@ -81,8 +66,7 @@ function Contact() {
 
                 <div>
                   <h3>Location</h3>
-
-                  <p>{settings?.location || "Visakhapatnam, India"}</p>
+                  <p>{settings?.location}</p>
                 </div>
               </div>
 
@@ -93,7 +77,6 @@ function Contact() {
 
                 <div>
                   <h3>Phone</h3>
-
                   <p>{settings?.phone}</p>
                 </div>
               </div>
@@ -105,7 +88,6 @@ function Contact() {
 
                 <div>
                   <h3>Email</h3>
-
                   <p>{settings?.email}</p>
                 </div>
               </div>

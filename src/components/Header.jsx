@@ -95,8 +95,8 @@ function Header({ settings, socialLinks = [] }) {
 
       <div className="profile-img">
         <img
-          src={settings?.profile_image_url || "/assets/img/mohan.webp"}
-          alt={settings?.full_name || "Profile"}
+          src={settings?.profile_image_url}
+          alt={settings?.full_name}
           className="img-fluid rounded-circle"
           width="100"
           height="100"
@@ -109,11 +109,11 @@ function Header({ settings, socialLinks = [] }) {
 
       <Link to="/" className="logo text-center">
         <h1 className="sitename">
-          {settings?.full_name || "Mohan Kalavalapalli"}
+          {settings?.full_name}
         </h1>
 
         <span className="designation">
-          {settings?.title || "Laravel Full Stack Developer"}
+          {settings?.title}
         </span>
       </Link>
 

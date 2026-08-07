@@ -1,26 +1,6 @@
-import { useEffect, useState } from "react";
-import api from "../api/axios";
+import React from "react";
 
-const Certificates = () => {
-  const [certificates, setCertificates] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchCertificates();
-  }, []);
-
-  const fetchCertificates = async () => {
-    try {
-      const response = await api.get("/certificates");
-      setCertificates(response.data.data || []);
-    } catch (error) {
-      console.error("Certificate API Error:", error);
-      setCertificates([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+const Certificates = ({ certificates = [] }) => {
   const formatDate = (date) => {
     if (!date) return "-";
 
@@ -31,10 +11,7 @@ const Certificates = () => {
   };
 
   return (
-    <section
-      id="certificates"
-      className="certificates section light-background"
-    >
+    <section id="certificates" className="certificates section">
       <div className="container section-title" data-aos="fade-up">
         <h2>Certificates</h2>
 
@@ -45,11 +22,7 @@ const Certificates = () => {
       </div>
 
       <div className="container">
-        {loading ? (
-          <div className="text-center py-5">
-            <div id="preloader"></div>
-          </div>
-        ) : certificates.length === 0 ? (
+        {certificates.length === 0 ? (
           <div className="text-center">
             <p>No certificates available.</p>
           </div>

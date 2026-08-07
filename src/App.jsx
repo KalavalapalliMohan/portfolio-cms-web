@@ -3,76 +3,59 @@ import { Routes, Route } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
 import settingService from "./services/settingService";
-import projectService from "./services/projectService";
+import publicProjectService from "./services/publicProjectService";
 import publicSkillService from "./services/publicSkillService";
 import publicExperienceService from "./services/publicExperienceService";
-import certificateService from "./services/certificateService";
+import publicEducationService from "./services/publicEducationService";
+import publicCertificateService from "./services/publicCertificateService";
 import publicSocialLinkService from "./services/publicSocialLinkService";
 
 import Loader from "./components/Loader";
 
 import AdminLayout from "./admin/layouts/AdminLayout";
 import AdminAuthLayout from "./admin/layouts/AdminAuthLayout";
-
 import ProtectedRoute from "./admin/layouts/ProtectedRoute";
 import GuestRoute from "./admin/layouts/GuestRoute";
 
 // ===============================
-// Common Components Lazy Loading
+// Common Components
 // ===============================
 
 const Header = lazy(() => import("./components/Header"));
-
 const Footer = lazy(() => import("./components/Footer"));
 
 // ===============================
-// Public Components Lazy Loading
+// Public Components
 // ===============================
 
 const Hero = lazy(() => import("./components/Hero"));
-
 const About = lazy(() => import("./components/About"));
-
 const Skills = lazy(() => import("./components/Skills"));
-
 const Resume = lazy(() => import("./components/Resume"));
-
 const Certificates = lazy(() => import("./components/Certificates"));
-
 const Portfolio = lazy(() => import("./components/Portfolio"));
-
 const Services = lazy(() => import("./components/Services"));
-
 const Contact = lazy(() => import("./components/Contact"));
 
 // ===============================
-// Admin Lazy Loading
+// Admin Pages
 // ===============================
 
 const Login = lazy(() => import("./admin/pages/Login"));
-
 const Dashboard = lazy(() => import("./admin/pages/Dashboard"));
-
 const ProjectList = lazy(() => import("./admin/pages/projects/ProjectList"));
-
 const SkillList = lazy(() => import("./admin/pages/skills/SkillList"));
-
 const ExperienceList = lazy(
   () => import("./admin/pages/experiences/ExperienceList"),
 );
-
 const EducationList = lazy(
   () => import("./admin/pages/education/EducationList"),
 );
-
 const CertificateList = lazy(
   () => import("./admin/pages/certificates/CertificateList"),
 );
-
 const Settings = lazy(() => import("./admin/pages/settings/Settings"));
-
 const MessageList = lazy(() => import("./admin/pages/messages/MessageList"));
-
 const SocialLinks = lazy(
   () => import("./admin/pages/social-links/SocialLinks"),
 );
@@ -81,15 +64,11 @@ function PortfolioWebsite() {
   const [loading, setLoading] = useState(true);
 
   const [settings, setSettings] = useState(null);
-
   const [projects, setProjects] = useState([]);
-
   const [skills, setSkills] = useState([]);
-
   const [experiences, setExperiences] = useState([]);
-
+  const [educations, setEducations] = useState([]);
   const [certificates, setCertificates] = useState([]);
-
   const [socialLinks, setSocialLinks] = useState([]);
 
   useEffect(() => {
@@ -100,19 +79,16 @@ function PortfolioWebsite() {
           skillsResponse,
           projectsResponse,
           experiencesResponse,
+          educationsResponse,
           certificatesResponse,
           socialLinksResponse,
         ] = await Promise.all([
           settingService.getSettings(),
-
           publicSkillService.getSkills(),
-
-          projectService.getProjects(),
-
+          publicProjectService.getProjects(),
           publicExperienceService.getExperiences(),
-
-          certificateService.getCertificates(),
-
+          publicEducationService.getEducations(),
+          publicCertificateService.getCertificates(),
           publicSocialLinkService.getSocialLinks(),
         ]);
 
@@ -123,6 +99,8 @@ function PortfolioWebsite() {
         setProjects(projectsResponse.data || []);
 
         setExperiences(experiencesResponse.data || []);
+
+        setEducations(educationsResponse.data || []);
 
         setCertificates(certificatesResponse.data || []);
 
@@ -152,20 +130,8 @@ function PortfolioWebsite() {
 
         <meta
           name="description"
-          content="PHP Laravel Full Stack Developer with 3+ years of experience in Laravel, React, REST APIs, PostgreSQL, MySQL, CRM, HRMS, and modern web application development."
+          content="PHP Laravel Full Stack Developer with 3+ years of experience in Laravel, React, REST APIs, PostgreSQL, MySQL, CRM, HRMS and enterprise applications."
         />
-
-        <meta
-          name="keywords"
-          content="Mohan Kalavalapalli, PHP Developer, Laravel Developer, Full Stack Developer, React Developer, REST API Developer, PostgreSQL, MySQL, JavaScript, Bootstrap, CRM Development, HRMS Development, Portfolio Website, Web Developer India"
-        />
-
-        <link
-          rel="canonical"
-          href="https://portfolio-cms-web-five.vercel.app/"
-        />
-
-        <meta property="og:type" content="website" />
 
         <meta
           property="og:title"
@@ -194,7 +160,7 @@ function PortfolioWebsite() {
 
         <Skills skills={skills} />
 
-        <Resume experiences={experiences} />
+        <Resume experiences={experiences} educations={educations} />
 
         <Certificates certificates={certificates} />
 
@@ -202,10 +168,10 @@ function PortfolioWebsite() {
 
         <Services />
 
-        <Contact />
+        <Contact settings={settings} />
       </main>
 
-      <Footer />
+      <Footer settings={settings} />
     </>
   );
 }

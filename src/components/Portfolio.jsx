@@ -1,27 +1,8 @@
-import { useEffect, useState, useRef } from "react";
-import api from "../api/axios";
+import { useState, useRef } from "react";
 
-function Portfolio() {
-  const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(true);
+function Portfolio({ projects = [] }) {
   const [selectedProject, setSelectedProject] = useState(null);
   const closeButtonRef = useRef(null);
-
-  useEffect(() => {
-    fetchProjects();
-  }, []);
-
-  const fetchProjects = async () => {
-    try {
-      const response = await api.get("/projects");
-      setProjects(response.data.data || []);
-    } catch (error) {
-      console.error("Project API Error:", error);
-      setProjects([]);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const getDescriptionList = (description = "") => {
     return description
@@ -41,7 +22,7 @@ function Portfolio() {
   };
 
   return (
-    <section id="portfolio" className="portfolio section light-background">
+    <section id="portfolio" className="portfolio section">
       <div className="container section-title" data-aos="fade-up">
         <h2>Portfolio</h2>
 
@@ -52,11 +33,7 @@ function Portfolio() {
       </div>
 
       <div className="container">
-        {loading ? (
-          <div className="text-center py-5">
-            <div id="preloader"></div>
-          </div>
-        ) : projects.length === 0 ? (
+        {projects.length === 0 ? (
           <div className="text-center">
             <p>No projects available.</p>
           </div>
@@ -81,6 +58,7 @@ function Portfolio() {
                           width="600"
                           height="400"
                           loading="lazy"
+                          decoding="async"
                         />
                       ) : (
                         <div className="portfolio-placeholder">
@@ -150,8 +128,6 @@ function Portfolio() {
           </div>
         )}
       </div>
-
-      {/* Modal */}
 
       <div
         className="modal fade"

@@ -1,29 +1,14 @@
-import { useEffect, useState } from "react";
-import settingService from "../services/settingService";
+import React from "react";
 
-function Footer() {
-  const [settings, setSettings] = useState(null);
-
-  useEffect(() => {
-    fetchSettings();
-  }, []);
-
-  const fetchSettings = async () => {
-    try {
-      const response = await settingService.getSettings();
-      setSettings(response.data.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+function Footer({ settings }) {
+  // console.log("Footer settings:", settings);
   return (
     <footer id="footer" className="footer">
       <div className="container">
-        <h3>{settings?.full_name || "Mohan Kalavalapalli"}</h3>
+        <h3>{settings?.full_name}</h3>
 
         <p className="footer-tagline">
-          {settings?.title || "PHP Laravel Full Stack Developer"}
+          {settings?.title}
         </p>
 
         <div className="footer-social">
@@ -35,28 +20,25 @@ function Footer() {
             <i className="bi bi-linkedin"></i>
           </a>
 
-          <a href={`mailto:${settings?.email}`}>
+          <a href={`mailto:${settings?.email || ""}`}>
             <i className="bi bi-envelope-fill"></i>
           </a>
 
-          <a href={`tel:${settings?.phone}`}>
+          <a href={`tel:${settings?.phone || ""}`}>
             <i className="bi bi-telephone-fill"></i>
           </a>
         </div>
 
         <div className="footer-tech">
           <span>Laravel</span>
-
           <span>React</span>
-
           <span>REST API</span>
-
           <span>MySQL</span>
         </div>
 
         <div className="copyright">
           © {new Date().getFullYear()}{" "}
-          <strong>{settings?.full_name || "Mohan Kalavalapalli"}</strong>
+          <strong>{settings?.full_name}</strong>
           <br />
           All Rights Reserved.
         </div>
