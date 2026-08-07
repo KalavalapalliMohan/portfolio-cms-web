@@ -2,13 +2,7 @@ import { useEffect, useState, lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
-import settingService from "./services/settingService";
-import publicProjectService from "./services/publicProjectService";
-import publicSkillService from "./services/publicSkillService";
-import publicExperienceService from "./services/publicExperienceService";
-import publicEducationService from "./services/publicEducationService";
-import publicCertificateService from "./services/publicCertificateService";
-import publicSocialLinkService from "./services/publicSocialLinkService";
+import publicPortfolioService from "./services/publicPortfolioService";
 
 import Loader from "./components/Loader";
 
@@ -71,49 +65,33 @@ function PortfolioWebsite() {
   const [certificates, setCertificates] = useState([]);
   const [socialLinks, setSocialLinks] = useState([]);
 
-  useEffect(() => {
+useEffect(() => {
+    console.log("PortfolioWebsite Mounted");
+
     const loadPortfolioData = async () => {
-      try {
-        const [
-          settingsResponse,
-          skillsResponse,
-          projectsResponse,
-          experiencesResponse,
-          educationsResponse,
-          certificatesResponse,
-          socialLinksResponse,
-        ] = await Promise.all([
-          settingService.getSettings(),
-          publicSkillService.getSkills(),
-          publicProjectService.getProjects(),
-          publicExperienceService.getExperiences(),
-          publicEducationService.getEducations(),
-          publicCertificateService.getCertificates(),
-          publicSocialLinkService.getSocialLinks(),
-        ]);
+        console.log("Loading Portfolio API");
 
-        setSettings(settingsResponse.data);
+        try {
+            const response = await publicPortfolioService.getPortfolio();
 
-        setSkills(skillsResponse.data || []);
+            const data = response.data;
 
-        setProjects(projectsResponse.data || []);
-
-        setExperiences(experiencesResponse.data || []);
-
-        setEducations(educationsResponse.data || []);
-
-        setCertificates(certificatesResponse.data || []);
-
-        setSocialLinks(socialLinksResponse.data || []);
-      } catch (error) {
-        console.error("Portfolio loading failed", error);
-      } finally {
-        setLoading(false);
-      }
+            setSettings(data.settings);
+            setSkills(data.skills);
+            setProjects(data.projects);
+            setExperiences(data.experiences);
+            setEducations(data.educations);
+            setCertificates(data.certificates);
+            setSocialLinks(data.social_links);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     loadPortfolioData();
-  }, []);
+}, []);
 
   if (loading) {
     return <Loader />;
